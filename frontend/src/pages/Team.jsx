@@ -1,6 +1,5 @@
-import { useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const teamMembers = [
   {
@@ -60,104 +59,121 @@ const teamMembers = [
 ];
 
 export default function Team() {
-  const targetRef = useRef(null);
-  
-  // Calculate horizontal scroll based on vertical scroll of the target container
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
+  const [selectedId, setSelectedId] = useState(null);
 
-  // Map scroll progress 0 -> 1 to x translation (e.g. 1% to -85%)
-  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-80%"]);
-  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -300]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+  const selectedMember = teamMembers.find(m => m.id === selectedId);
 
   return (
-    <div className="team-page">
-      {/* Hero Section (Fades out as horizontal scroll begins) */}
-      <motion.header 
-        className="team-hero-h"
-        style={{ y: heroY, opacity: heroOpacity }}
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          style={{ zIndex: 1, position: 'relative' }}
-        >
-          <span className="eyebrow" style={{ display: 'block', marginBottom: '24px', color: 'var(--gold)', letterSpacing: '0.2em' }}>
-            Storyline Design &amp; Events
-          </span>
-          <h1>Meet The <em style={{ color: 'var(--gold)' }}>Team.</em></h1>
-          <p style={{ margin: '32px auto 0', maxWidth: '520px', color: 'var(--white-muted)', fontSize: '18px', lineHeight: '1.7' }}>
-            Scroll down to explore the specialists behind every production.
-          </p>
+    <div className="team-app-page">
+      <header className="team-app-header">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+          <h1>Meet The <em>Team.</em></h1>
+          <p>Click on any specialist to view their full profile.</p>
         </motion.div>
-      </motion.header>
+      </header>
 
-      {/* Horizontal Scroll Section */}
-      <section ref={targetRef} className="horizontal-scroll-section">
-        <div className="horizontal-sticky-container">
-          <motion.div style={{ x }} className="horizontal-track">
-            
-            {teamMembers.map((member) => (
-              <div key={member.id} className="team-card-h">
-                <div className="team-card-photo-wrapper">
-                  <div className="team-card-photo">
-                    <img 
-                      src={member.image} 
-                      alt={member.name} 
-                      onError={(e) => { 
-                        e.target.style.display = 'none'; 
-                        const fallback = document.createElement('div');
-                        fallback.style.display = 'flex';
-                        fallback.style.alignItems = 'center';
-                        fallback.style.justifyContent = 'center';
-                        fallback.style.width = '100%';
-                        fallback.style.aspectRatio = '3/4';
-                        fallback.style.fontSize = '80px';
-                        fallback.style.color = 'var(--gold-muted)';
-                        fallback.style.fontFamily = 'var(--font-heading)';
-                        fallback.innerText = member.initials;
-                        e.target.parentNode.appendChild(fallback);
-                      }} 
-                    />
-                  </div>
-                </div>
-
-                <div className="team-card-content">
-                  <span className="team-card-index">Plate {member.id}</span>
-                  <h2 className="team-card-name">{member.name}</h2>
-                  <div className="team-card-title">{member.title}</div>
-                  <p className="team-card-bio">{member.bio}</p>
-                  
-                  <div className="team-tags">
-                    {member.tags.map(tag => (
-                      <span key={tag} className="team-tag">{tag}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-            
+      {/* The Grid */}
+      <div className="team-grid">
+        {teamMembers.map((member) => (
+          <motion.div 
+            key={member.id}
+            layoutId={`card-container-${member.id}`}
+            className="team-card"
+            onClick={() => setSelectedId(member.id)}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <motion.img 
+              layoutId={`card-image-${member.id}`}
+              src={member.image}
+              alt={member.name}
+              className="team-card-photo"
+              onError={(e) => { e.target.style.display = 'none'; }}
+            />
+            <motion.div 
+              className="team-card-overlay"
+              layoutId={`card-overlay-${member.id}`}
+            >
+              <motion.h3 layoutId={`card-name-${member.id}`}>{member.name}</motion.h3>
+              <motion.p layoutId={`card-title-${member.id}`}>{member.title}</motion.p>
+            </motion.div>
           </motion.div>
-        </div>
-      </section>
+        ))}
+      </div>
 
-      {/* Footer CTA */}
-      <section className="cta" style={{ textAlign: 'center', padding: '160px 24px 180px', borderTop: '1px solid rgba(255, 255, 255, 0.05)', position: 'relative', overflow: 'hidden' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
-        >
-          <span className="eyebrow" style={{ color: 'var(--gold)' }}>Now Booking 2026 / 2027</span>
-          <h2 style={{ marginTop: '24px', fontSize: 'clamp(32px,6vw,52px)', maxWidth: '700px', margin: '24px auto 0', lineHeight: 1.1 }}>Six specialists.<br/>One blueprint.<br/><em style={{ color: 'var(--gold)' }}>Every build.</em></h2>
-          <p style={{ color: 'var(--white-muted)', margin: '32px 0 48px', fontSize: '16px' }}>Bring this team to your wedding or your next corporate production.</p>
-          <Link to="/contact" className="btn btn-primary btn-lg" style={{ padding: '16px 48px', fontSize: '16px', letterSpacing: '0.1em' }}>START YOUR INQUIRY</Link>
-        </motion.div>
-      </section>
+      {/* The Expanded Modal */}
+      <AnimatePresence>
+        {selectedId && (
+          <motion.div 
+            className="team-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedId(null)}
+          >
+            <motion.div 
+              layoutId={`card-container-${selectedId}`}
+              className="team-modal-content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="team-modal-close" onClick={() => setSelectedId(null)}>×</button>
+              
+              <motion.img 
+                layoutId={`card-image-${selectedId}`}
+                src={selectedMember.image}
+                alt={selectedMember.name}
+                className="team-modal-photo"
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+
+              <div className="team-modal-details">
+                <motion.span 
+                  initial={{ opacity: 0, y: 20 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ delay: 0.2 }}
+                  className="team-modal-index"
+                >
+                  Plate {selectedMember.id}
+                </motion.span>
+                
+                <motion.h2 
+                  layoutId={`card-name-${selectedId}`}
+                  className="team-modal-name"
+                >
+                  {selectedMember.name}
+                </motion.h2>
+                
+                <motion.div 
+                  layoutId={`card-title-${selectedId}`}
+                  className="team-modal-title"
+                >
+                  {selectedMember.title}
+                </motion.div>
+                
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ delay: 0.3 }}
+                  className="team-modal-bio"
+                >
+                  {selectedMember.bio}
+                </motion.p>
+                
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ delay: 0.4 }}
+                  className="team-modal-tags"
+                >
+                  {selectedMember.tags.map(tag => (
+                    <span key={tag} className="team-tag">{tag}</span>
+                  ))}
+                </motion.div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
