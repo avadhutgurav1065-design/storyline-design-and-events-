@@ -32,3 +32,8 @@ backend/.mvn/wrapper/maven-wrapper.jar
 
 # MacOS
 .DS_Store
+
+# Environment Variables
+.env
+.env.*
+!.env.example
