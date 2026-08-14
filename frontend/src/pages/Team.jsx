@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const teamMembers = [
   {
@@ -59,160 +59,92 @@ const teamMembers = [
   }
 ];
 
-// --- Magnetic Cutout Component ---
-function MagneticCutout({ src, name, initials }) {
-  const ref = useRef(null);
-  
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15, mass: 0.5 });
-  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15, mass: 0.5 });
-  
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-
-  const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      ref={ref}
-      className="team-scroll-photo-wrapper"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY }}
-      initial={{ opacity: 0, y: 150, scale: 0.9 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <div className="team-scroll-photo">
-        <img 
-          src={src} 
-          alt={name} 
-          onError={(e) => { 
-            e.target.style.display = 'none'; 
-            const fallback = document.createElement('div');
-            fallback.style.display = 'flex';
-            fallback.style.alignItems = 'center';
-            fallback.style.justifyContent = 'center';
-            fallback.style.width = '100%';
-            fallback.style.aspectRatio = '4/5';
-            fallback.style.fontSize = '120px';
-            fallback.style.color = 'var(--gold-muted)';
-            fallback.style.fontFamily = 'var(--font-heading)';
-            fallback.innerText = initials;
-            e.target.parentNode.appendChild(fallback);
-          }} 
-        />
-      </div>
-    </motion.div>
-  );
-}
-
-// --- Animated Text Component ---
-function AnimatedText({ member, isReverse }) {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1, 
-      transition: { staggerChildren: 0.1, delayChildren: 0.4 } 
-    }
-  };
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-  };
-
-  // Character by character for name
-  const nameVariants = {
-    hidden: { opacity: 0, y: 50, rotateX: -90 },
-    visible: { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
-  };
-
-  return (
-    <motion.div 
-      className="team-scroll-content"
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-    >
-      <motion.span variants={textVariants} className="team-scroll-index">Plate {member.id}</motion.span>
-      
-      <h2 className="team-scroll-name" style={{ perspective: '1000px' }}>
-        {member.name.split('').map((char, index) => (
-          <motion.span key={index} variants={nameVariants}>
-            {char === ' ' ? '\u00A0' : char}
-          </motion.span>
-        ))}
-      </h2>
-      
-      <motion.div variants={textVariants} className="team-scroll-title">{member.title}</motion.div>
-      <motion.p variants={textVariants} className="team-scroll-bio">{member.bio}</motion.p>
-      
-      <motion.div variants={textVariants} className="team-tags">
-        {member.tags.map(tag => (
-          <span key={tag} className="team-tag">{tag}</span>
-        ))}
-      </motion.div>
-    </motion.div>
-  );
-}
-
 export default function Team() {
-  const { scrollYProgress } = useScroll();
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const targetRef = useRef(null);
+  
+  // Calculate horizontal scroll based on vertical scroll of the target container
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
+
+  // Map scroll progress 0 -> 1 to x translation (e.g. 1% to -85%)
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-80%"]);
+  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -300]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
 
   return (
-    <div>
-      <header className="team-hero">
-        <motion.div className="team-hero-inner" style={{ y: heroY }}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="eyebrow" style={{ display: 'block', marginBottom: '24px', color: 'var(--gold)', letterSpacing: '0.2em' }}>
-              Storyline Design &amp; Events
-            </span>
-            <h1>Meet The <em style={{ color: 'var(--gold)' }}>Team.</em></h1>
-            <p style={{ margin: '32px auto 0', maxWidth: '520px', color: 'var(--white-muted)', fontSize: '18px', lineHeight: '1.7' }}>
-              Every Storyline event passes through the same six hands — from the first digital blueprint to the final overnight transformation.
-            </p>
-          </motion.div>
+    <div className="team-page">
+      {/* Hero Section (Fades out as horizontal scroll begins) */}
+      <motion.header 
+        className="team-hero-h"
+        style={{ y: heroY, opacity: heroOpacity }}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          style={{ zIndex: 1, position: 'relative' }}
+        >
+          <span className="eyebrow" style={{ display: 'block', marginBottom: '24px', color: 'var(--gold)', letterSpacing: '0.2em' }}>
+            Storyline Design &amp; Events
+          </span>
+          <h1>Meet The <em style={{ color: 'var(--gold)' }}>Team.</em></h1>
+          <p style={{ margin: '32px auto 0', maxWidth: '520px', color: 'var(--white-muted)', fontSize: '18px', lineHeight: '1.7' }}>
+            Scroll down to explore the specialists behind every production.
+          </p>
         </motion.div>
-      </header>
+      </motion.header>
 
-      <section className="team-scroll-container">
-        {teamMembers.map((member, index) => {
-          const isReverse = index % 2 !== 0;
-          return (
-            <div key={member.id} className={`team-scroll-section ${isReverse ? 'reverse' : ''}`}>
-              <MagneticCutout src={member.image} name={member.name} initials={member.initials} />
-              <AnimatedText member={member} isReverse={isReverse} />
-            </div>
-          );
-        })}
+      {/* Horizontal Scroll Section */}
+      <section ref={targetRef} className="horizontal-scroll-section">
+        <div className="horizontal-sticky-container">
+          <motion.div style={{ x }} className="horizontal-track">
+            
+            {teamMembers.map((member) => (
+              <div key={member.id} className="team-card-h">
+                <div className="team-card-photo-wrapper">
+                  <div className="team-card-photo">
+                    <img 
+                      src={member.image} 
+                      alt={member.name} 
+                      onError={(e) => { 
+                        e.target.style.display = 'none'; 
+                        const fallback = document.createElement('div');
+                        fallback.style.display = 'flex';
+                        fallback.style.alignItems = 'center';
+                        fallback.style.justifyContent = 'center';
+                        fallback.style.width = '100%';
+                        fallback.style.aspectRatio = '3/4';
+                        fallback.style.fontSize = '80px';
+                        fallback.style.color = 'var(--gold-muted)';
+                        fallback.style.fontFamily = 'var(--font-heading)';
+                        fallback.innerText = member.initials;
+                        e.target.parentNode.appendChild(fallback);
+                      }} 
+                    />
+                  </div>
+                </div>
+
+                <div className="team-card-content">
+                  <span className="team-card-index">Plate {member.id}</span>
+                  <h2 className="team-card-name">{member.name}</h2>
+                  <div className="team-card-title">{member.title}</div>
+                  <p className="team-card-bio">{member.bio}</p>
+                  
+                  <div className="team-tags">
+                    {member.tags.map(tag => (
+                      <span key={tag} className="team-tag">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+          </motion.div>
+        </div>
       </section>
 
+      {/* Footer CTA */}
       <section className="cta" style={{ textAlign: 'center', padding: '160px 24px 180px', borderTop: '1px solid rgba(255, 255, 255, 0.05)', position: 'relative', overflow: 'hidden' }}>
         <motion.div
           initial={{ opacity: 0, y: 100 }}
