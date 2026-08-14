@@ -1,0 +1,34 @@
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Downloaded binaries for local execution
+maven/
+jdk/
+maven.zip
+jdk.zip
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+
+# Java/Maven
+backend/target/
+backend/*.log
+backend/pom.xml.tag
+backend/pom.xml.releaseBackup
+backend/pom.xml.versionsBackup
+backend/pom.xml.next
+backend/release.properties
+backend/dependency-reduced-pom.xml
+backend/buildNumber.properties
+backend/.mvn/timing.properties
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# MacOS
+.DS_Store
