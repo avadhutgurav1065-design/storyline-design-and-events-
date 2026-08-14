@@ -33,7 +33,7 @@ export default function Navbar() {
       <nav className={navClass} id="main-nav">
         <div className="navbar-inner">
           <Link to="/" className="navbar-logo">
-            <div className="navbar-logo-icon">S</div>
+            <img src="/images/logo.jpg" alt="Storyline Logo" className="navbar-logo-img" />
             <div>
               <div className="navbar-logo-text">STORYLINE</div>
               <div className="navbar-logo-sub">Design & Events</div>

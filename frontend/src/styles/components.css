@@ -924,3 +924,6 @@
   border: 1px solid var(--error);
   color: var(--error);
 }
+
+.navbar-logo-img { height: 50px; width: auto; object-fit: contain; }
+.loader-logo-img { height: 80px; width: auto; object-fit: contain; animation: pulse 2s infinite ease-in-out; margin-bottom: var(--space-md); }

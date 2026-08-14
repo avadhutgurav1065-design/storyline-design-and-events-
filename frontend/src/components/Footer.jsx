@@ -9,7 +9,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div>
             <Link to="/" className="navbar-logo" style={{ marginBottom: '8px' }}>
-              <div className="navbar-logo-icon">S</div>
+              <img src="/images/logo.jpg" alt="Storyline Logo" className="navbar-logo-img" />
               <div>
                 <div className="navbar-logo-text">STORYLINE</div>
                 <div className="navbar-logo-sub">Design & Events</div>

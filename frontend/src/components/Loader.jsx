@@ -17,7 +17,9 @@ export default function Loader() {
 
   return (
     <div className={`loader ${hidden ? 'hidden' : ''}`}>
-      <div className="loader-logo">S</div>
+      <div className="loader-logo-container">
+        <img src="/images/logo.jpg" alt="Loading..." className="loader-logo-img" />
+      </div>
       <div className="loader-text">Storyline</div>
     </div>
   );
