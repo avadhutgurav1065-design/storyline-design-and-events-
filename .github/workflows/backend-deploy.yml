@@ -1,0 +1,53 @@
+name: "\U0001F680 Backend CI/CD"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'backend/**'
+
+jobs:
+  build-and-test:
+    name: "\U0001F50D Build & Test"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+      - name: "\U0001F4E5 Checkout code"
+        uses: actions/checkout@v4
+
+      - name: "☕ Setup Java 18"
+        uses: actions/setup-java@v4
+        with:
+          java-version: '18'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: "\U0001F3D7\uFE0F Build with Maven"
+        run: ./mvnw clean package -DskipTests
+
+      - name: "\U0001F9EA Run tests"
+        run: ./mvnw test
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          SUPABASE_DB_USERNAME: ${{ secrets.SUPABASE_DB_USERNAME }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          GMAIL_SMTP_USERNAME: ${{ secrets.GMAIL_SMTP_USERNAME }}
+          GMAIL_SMTP_PASSWORD: ${{ secrets.GMAIL_SMTP_PASSWORD }}
+
+  deploy:
+    name: "\U0001F680 Deploy to Render"
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "\U0001F680 Trigger Render Deploy"
+        run: |
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
