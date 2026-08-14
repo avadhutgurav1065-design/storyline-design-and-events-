@@ -1,5 +1,6 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 
 const teamMembers = [
   {
@@ -58,59 +59,146 @@ const teamMembers = [
   }
 ];
 
-// Animation Variants
-const photoVariants = {
-  hidden: { opacity: 0, y: 100, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    scale: 1, 
-    transition: { duration: 0.9, ease: [0.165, 0.84, 0.44, 1] } 
-  }
-};
+// --- Magnetic Cutout Component ---
+function MagneticCutout({ src, name, initials }) {
+  const ref = useRef(null);
+  
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15, mass: 0.5 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15, mass: 0.5 });
+  
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
 
-const contentVariants = {
-  hidden: { opacity: 0, x: -40 },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { duration: 0.7, delay: 0.3, ease: 'easeOut', staggerChildren: 0.1 } 
-  }
-};
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
 
-const contentVariantsReverse = {
-  hidden: { opacity: 0, x: 40 },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { duration: 0.7, delay: 0.3, ease: 'easeOut', staggerChildren: 0.1 } 
-  }
-};
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-};
+  return (
+    <motion.div
+      ref={ref}
+      className="team-scroll-photo-wrapper"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY }}
+      initial={{ opacity: 0, y: 150, scale: 0.9 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div className="team-scroll-photo">
+        <img 
+          src={src} 
+          alt={name} 
+          onError={(e) => { 
+            e.target.style.display = 'none'; 
+            const fallback = document.createElement('div');
+            fallback.style.display = 'flex';
+            fallback.style.alignItems = 'center';
+            fallback.style.justifyContent = 'center';
+            fallback.style.width = '100%';
+            fallback.style.aspectRatio = '4/5';
+            fallback.style.fontSize = '120px';
+            fallback.style.color = 'var(--gold-muted)';
+            fallback.style.fontFamily = 'var(--font-heading)';
+            fallback.innerText = initials;
+            e.target.parentNode.appendChild(fallback);
+          }} 
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+// --- Animated Text Component ---
+function AnimatedText({ member, isReverse }) {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1, 
+      transition: { staggerChildren: 0.1, delayChildren: 0.4 } 
+    }
+  };
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
+  // Character by character for name
+  const nameVariants = {
+    hidden: { opacity: 0, y: 50, rotateX: -90 },
+    visible: { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  };
+
+  return (
+    <motion.div 
+      className="team-scroll-content"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+    >
+      <motion.span variants={textVariants} className="team-scroll-index">Plate {member.id}</motion.span>
+      
+      <h2 className="team-scroll-name" style={{ perspective: '1000px' }}>
+        {member.name.split('').map((char, index) => (
+          <motion.span key={index} variants={nameVariants}>
+            {char === ' ' ? '\u00A0' : char}
+          </motion.span>
+        ))}
+      </h2>
+      
+      <motion.div variants={textVariants} className="team-scroll-title">{member.title}</motion.div>
+      <motion.p variants={textVariants} className="team-scroll-bio">{member.bio}</motion.p>
+      
+      <motion.div variants={textVariants} className="team-tags">
+        {member.tags.map(tag => (
+          <span key={tag} className="team-tag">{tag}</span>
+        ))}
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export default function Team() {
+  const { scrollYProgress } = useScroll();
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 300]);
+
   return (
     <div>
       <header className="team-hero">
-        <div className="team-hero-inner">
+        <motion.div className="team-hero-inner" style={{ y: heroY }}>
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: 'easeOut' }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="eyebrow" style={{ display: 'block', marginBottom: '24px', color: 'var(--gold)', letterSpacing: '0.15em' }}>
+            <span className="eyebrow" style={{ display: 'block', marginBottom: '24px', color: 'var(--gold)', letterSpacing: '0.2em' }}>
               Storyline Design &amp; Events
             </span>
             <h1>Meet The <em style={{ color: 'var(--gold)' }}>Team.</em></h1>
-            <p style={{ margin: '32px auto 0', maxWidth: '520px', color: 'var(--white-muted)', fontSize: '17px', lineHeight: '1.7' }}>
+            <p style={{ margin: '32px auto 0', maxWidth: '520px', color: 'var(--white-muted)', fontSize: '18px', lineHeight: '1.7' }}>
               Every Storyline event passes through the same six hands — from the first digital blueprint to the final overnight transformation.
             </p>
           </motion.div>
-        </div>
+        </motion.div>
       </header>
 
       <section className="team-scroll-container">
@@ -118,71 +206,24 @@ export default function Team() {
           const isReverse = index % 2 !== 0;
           return (
             <div key={member.id} className={`team-scroll-section ${isReverse ? 'reverse' : ''}`}>
-              {/* Photo Area */}
-              <motion.div 
-                className="team-scroll-photo-wrapper"
-                variants={photoVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-              >
-                <div className="team-scroll-photo">
-                  <img 
-                    src={member.image} 
-                    alt={member.name} 
-                    onError={(e) => { 
-                      e.target.style.display = 'none'; 
-                      const fallback = document.createElement('div');
-                      fallback.style.display = 'flex';
-                      fallback.style.alignItems = 'center';
-                      fallback.style.justifyContent = 'center';
-                      fallback.style.width = '100%';
-                      fallback.style.height = '100%';
-                      fallback.style.fontSize = '80px';
-                      fallback.style.color = 'var(--gold-muted)';
-                      fallback.style.fontFamily = 'var(--font-heading)';
-                      fallback.innerText = member.initials;
-                      e.target.parentNode.appendChild(fallback);
-                    }} 
-                  />
-                </div>
-              </motion.div>
-
-              {/* Content Area */}
-              <motion.div 
-                className="team-scroll-content"
-                variants={isReverse ? contentVariantsReverse : contentVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-              >
-                <motion.span variants={itemVariants} className="team-scroll-index">Plate {member.id}</motion.span>
-                <motion.h2 variants={itemVariants} className="team-scroll-name">{member.name}</motion.h2>
-                <motion.div variants={itemVariants} className="team-scroll-title">{member.title}</motion.div>
-                <motion.p variants={itemVariants} className="team-scroll-bio">{member.bio}</motion.p>
-                
-                <motion.div variants={itemVariants} className="team-tags">
-                  {member.tags.map(tag => (
-                    <span key={tag} className="team-tag">{tag}</span>
-                  ))}
-                </motion.div>
-              </motion.div>
+              <MagneticCutout src={member.image} name={member.name} initials={member.initials} />
+              <AnimatedText member={member} isReverse={isReverse} />
             </div>
           );
         })}
       </section>
 
-      <section className="cta" style={{ textAlign: 'center', padding: '140px 24px 150px', borderTop: '1px solid rgba(255, 255, 255, 0.05)', position: 'relative' }}>
+      <section className="cta" style={{ textAlign: 'center', padding: '160px 24px 180px', borderTop: '1px solid rgba(255, 255, 255, 0.05)', position: 'relative', overflow: 'hidden' }}>
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
         >
           <span className="eyebrow" style={{ color: 'var(--gold)' }}>Now Booking 2026 / 2027</span>
-          <h2 style={{ marginTop: '20px', fontSize: 'clamp(28px,5vw,46px)', maxWidth: '640px', margin: '20px auto 0' }}>Six specialists. One blueprint. Every build.</h2>
-          <p style={{ color: 'var(--white-muted)', margin: '24px 0 40px', fontSize: '15px' }}>Bring this team to your wedding or your next corporate production.</p>
-          <Link to="/contact" className="btn btn-primary btn-lg">Start Your Inquiry</Link>
+          <h2 style={{ marginTop: '24px', fontSize: 'clamp(32px,6vw,52px)', maxWidth: '700px', margin: '24px auto 0', lineHeight: 1.1 }}>Six specialists.<br/>One blueprint.<br/><em style={{ color: 'var(--gold)' }}>Every build.</em></h2>
+          <p style={{ color: 'var(--white-muted)', margin: '32px 0 48px', fontSize: '16px' }}>Bring this team to your wedding or your next corporate production.</p>
+          <Link to="/contact" className="btn btn-primary btn-lg" style={{ padding: '16px 48px', fontSize: '16px', letterSpacing: '0.1em' }}>START YOUR INQUIRY</Link>
         </motion.div>
       </section>
     </div>
