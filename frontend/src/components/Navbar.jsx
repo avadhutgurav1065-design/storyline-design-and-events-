@@ -34,7 +34,9 @@ export default function Navbar() {
       <nav className={navClass} id="main-nav">
         <div className="navbar-inner">
           <Link to="/" className="navbar-logo">
-            <img src="/images/logo.jpg" alt="Storyline Logo" className="navbar-logo-img" />
+            <div className="logo-circle-wrapper" style={{ width: '65px', height: '65px' }}>
+              <img src="/images/logo.jpg" alt="Storyline Logo" className="navbar-logo-img" />
+            </div>
             <div>
               <div className="navbar-logo-text">STORYLINE</div>
               <div className="navbar-logo-sub">Design & Events</div>

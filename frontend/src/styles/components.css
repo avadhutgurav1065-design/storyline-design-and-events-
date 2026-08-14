@@ -925,5 +925,13 @@
   color: var(--error);
 }
 
-.navbar-logo-img { height: 50px; width: auto; object-fit: contain; }
-.loader-logo-img { height: 80px; width: auto; object-fit: contain; animation: pulse 2s infinite ease-in-out; margin-bottom: var(--space-md); }
+.logo-circle-wrapper {
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+.navbar-logo-img { height: 100%; width: 100%; object-fit: cover; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+.loader-logo-img { height: 100%; width: 100%; object-fit: cover; animation: pulse 2s infinite ease-in-out; margin-bottom: var(--space-md); image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
