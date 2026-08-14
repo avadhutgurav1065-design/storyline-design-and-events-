@@ -37,7 +37,7 @@
   --gradient-gold: linear-gradient(135deg, #C9A84C 0%, #E8D5A3 50%, #C9A84C 100%);
   --gradient-gold-subtle: linear-gradient(135deg, rgba(201,168,76,0.3) 0%, rgba(232,213,163,0.1) 100%);
   --gradient-dark: linear-gradient(180deg, #111111 0%, #1A1A1A 50%, #222222 100%);
-  --gradient-hero: linear-gradient(180deg, rgba(17,17,17,0.3) 0%, rgba(17,17,17,0.7) 50%, rgba(17,17,17,0.95) 100%);
+  --gradient-hero: linear-gradient(180deg, rgba(17,17,17,0.6) 0%, rgba(17,17,17,0.8) 50%, rgba(17,17,17,0.95) 100%);
   --gradient-card: linear-gradient(145deg, rgba(45,45,45,0.6) 0%, rgba(26,26,26,0.8) 100%);
 
   /* ---- Typography ---- */
