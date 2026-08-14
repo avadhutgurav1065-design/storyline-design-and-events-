@@ -98,7 +98,7 @@ export default function Team() {
                   <div className="team-plate-title">Hospitality &amp; Rituals Head</div>
                 </div>
                 <div className="team-avatar" aria-hidden="true">
-                  <img src="/images/team/aishwarya.png" alt="Aishwarya Thite" onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.innerText = 'AT'; }} />
+                  <img src="/images/team/aishwarya.jpg" alt="Aishwarya Thite" onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.innerText = 'AT'; }} />
                 </div>
               </div>
               <div className="team-dim-line"></div>
@@ -167,7 +167,7 @@ export default function Team() {
                   <div className="team-plate-title">Logistics Head</div>
                 </div>
                 <div className="team-avatar" aria-hidden="true">
-                  <img src="/images/team/adesh.png" alt="Adesh Ghanwat" onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.innerText = 'AG'; }} />
+                  <img src="/images/team/adesh.jpg" alt="Adesh Ghanwat" onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.innerText = 'AG'; }} />
                 </div>
               </div>
               <div className="team-dim-line"></div>
