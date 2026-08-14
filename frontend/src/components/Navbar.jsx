@@ -26,6 +26,7 @@ export default function Navbar() {
     { to: '/design-studio', label: 'Studio' },
     { to: '/portfolio', label: 'Portfolio' },
     { to: '/about', label: 'About' },
+    { to: '/team', label: 'Team' },
   ];
 
   return (

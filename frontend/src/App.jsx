@@ -9,6 +9,7 @@ import Corporate from './pages/Corporate';
 import DesignStudio from './pages/DesignStudio';
 import Portfolio from './pages/Portfolio';
 import About from './pages/About';
+import Team from './pages/Team';
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
 
@@ -51,6 +52,7 @@ function App() {
           <Route path="/design-studio" element={<DesignStudio />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/about" element={<About />} />
+          <Route path="/team" element={<Team />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>

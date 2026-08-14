@@ -41,6 +41,7 @@ export default function Footer() {
               <Link to="/corporate">Storyline Corporate</Link>
               <Link to="/design-studio">Design Studio</Link>
               <Link to="/portfolio">Portfolio</Link>
+              <Link to="/team">Meet The Team</Link>
               <Link to="/about">About Us</Link>
               <Link to="/contact">Contact</Link>
             </div>
