@@ -744,3 +744,53 @@
   .hero-cta { flex-direction: column; width: 100%; gap: 15px; }
   .hero-cta .btn { width: 100%; }
 }
+
+/* ============================================
+   DEEP MOBILE GRID & FLEX REPAIRS (ROUND 2)
+   ============================================ */
+@media (max-width: 768px) {
+  /* 1. Fix Split Hero Absolute Positioning */
+  .split-hero { flex-direction: column !important; min-height: auto !important; padding: 20px 0 !important; }
+  .hero-center-box {
+    position: relative !important;
+    top: auto !important; bottom: auto !important; left: auto !important; right: auto !important;
+    transform: none !important;
+    width: 90% !important;
+    margin: 20px auto !important;
+    box-sizing: border-box !important;
+  }
+  .split-title { font-size: clamp(2rem, 10vw, 3rem) !important; word-break: break-word !important; }
+
+  /* 2. Fix Wedding Services Grid (.panel-grid) */
+  .panel-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  .panel-detail-item {
+    border-left: none !important;
+    padding-left: 0 !important;
+    text-align: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* 3. Force Forms to strictly stack vertically */
+  .c-form-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 15px !important;
+    width: 100% !important;
+  }
+  .c-input, .c-select {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* 4. Strict text paddings so paragraphs don't clip */
+  .hero-body-text {
+    width: 100% !important;
+    padding: 0 15px !important;
+    box-sizing: border-box !important;
+  }
+}

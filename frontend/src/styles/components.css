@@ -179,3 +179,11 @@
 
 
 
+
+/* MOBILE MENU BACKGROUND FIX */
+@media (max-width: 768px) {
+  .mobile-menu-overlay {
+    background: #faf6f0 !important; /* solid var(--cream) so it's readable */
+    backdrop-filter: none !important;
+  }
+}
