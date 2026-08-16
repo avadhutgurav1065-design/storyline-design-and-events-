@@ -694,3 +694,53 @@
   .floating-whatsapp-widget { width: 50px; height: 50px; bottom: 20px; right: 20px; }
   .floating-whatsapp-widget svg { width: 24px; height: 24px; }
 }
+
+/* ============================================
+   CRITICAL MOBILE REPAIR FIXES
+   ============================================ */
+@media (max-width: 768px) {
+  /* Enforce Absolute Viewport Locks */
+  * { box-sizing: border-box !important; }
+  body, html { width: 100% !important; max-width: 100vw !important; overflow-x: hidden !important; }
+  
+  /* Stop Mega Headings from Breaking */
+  .mega-heading { font-size: clamp(2rem, 8vw, 2.5rem) !important; word-break: keep-all !important; hyphens: none !important; }
+  
+  /* Hide overlapping non-essential UI */
+  .scroll-indicator { display: none !important; }
+  
+  /* Container resets (prevent bleeding right) */
+  .container, .container-wide, .container-narrow { 
+    width: 100% !important; 
+    max-width: 100vw !important; 
+    padding-left: 15px !important; 
+    padding-right: 15px !important; 
+    overflow-x: hidden !important;
+  }
+  
+  /* Forms explicitly constrained */
+  .intake-form-container, .inquiry-form, .contact-hero-boutique { width: 100% !important; padding: 20px !important; box-sizing: border-box !important; }
+  .c-input, .c-input-group, .form-control { width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
+  .c-form-row { display: flex !important; flex-direction: column !important; width: 100% !important; }
+  
+  /* Fix Floating Widget Overlaps */
+  .floating-whatsapp-widget { 
+    bottom: 15px !important; 
+    right: 15px !important; 
+    width: 45px !important; 
+    height: 45px !important; 
+    z-index: 9999 !important; 
+  }
+  .floating-whatsapp-widget svg { width: 22px !important; height: 22px !important; }
+  
+  /* Add padding to body so user can scroll past widget */
+  body { padding-bottom: 80px !important; }
+  
+  /* Fix About Section Text Cutting Off (Grid Fix) */
+  .grid-2 { display: flex !important; flex-direction: column !important; width: 100% !important; }
+  .grid-2 > div { padding: 15px !important; width: 100% !important; }
+  
+  /* Fix Hero CTAs */
+  .hero-cta { flex-direction: column; width: 100%; gap: 15px; }
+  .hero-cta .btn { width: 100%; }
+}
