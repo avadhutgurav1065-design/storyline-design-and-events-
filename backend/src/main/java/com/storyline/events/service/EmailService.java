@@ -3,6 +3,7 @@ package com.storyline.events.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,7 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
+    @Async
     public void sendInquiryNotification(String clientName, String clientEmail, String enquiryType, String message) {
         try {
             SimpleMailMessage mail = new SimpleMailMessage();
@@ -38,6 +40,7 @@ public class EmailService {
         }
     }
 
+    @Async
     public void sendInquiryConfirmation(String clientEmail, String clientName, String enquiryType) {
         try {
             SimpleMailMessage mail = new SimpleMailMessage();
@@ -60,3 +63,4 @@ public class EmailService {
         }
     }
 }
+
