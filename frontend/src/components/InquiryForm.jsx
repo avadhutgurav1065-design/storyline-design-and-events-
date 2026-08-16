@@ -19,6 +19,7 @@ export default function InquiryForm({ defaultTab = 'WEDDING' }) {
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const tabs = [
     { key: 'WEDDING', label: 'Wedding' },
@@ -63,13 +64,13 @@ export default function InquiryForm({ defaultTab = 'WEDDING' }) {
     }
 
     setLoading(true);
+    setError('');
     try {
       await submitInquiry(formData);
       setSubmitted(true);
-    } catch (error) {
-      // If API is down, show success anyway for demo
-      console.error('Submission error:', error);
-      setSubmitted(true);
+    } catch (err) {
+      console.error('Submission error:', err);
+      setError('Failed to submit inquiry. Please try again or contact us directly via email/WhatsApp.');
     } finally {
       setLoading(false);
     }
@@ -252,6 +253,20 @@ export default function InquiryForm({ defaultTab = 'WEDDING' }) {
         </div>
 
         <div className="form-submit">
+          {error && (
+            <div style={{
+              background: 'rgba(220, 53, 69, 0.15)',
+              border: '1px solid rgba(220, 53, 69, 0.4)',
+              color: '#ff6b6b',
+              padding: '12px 16px',
+              borderRadius: '8px',
+              marginBottom: '16px',
+              fontSize: 'var(--fs-small)',
+              textAlign: 'center',
+            }}>
+              {error}
+            </div>
+          )}
           <button
             type="submit"
             className="btn btn-primary btn-lg"
