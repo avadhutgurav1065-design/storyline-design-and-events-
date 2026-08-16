@@ -154,7 +154,7 @@ export default function InquiryForm({ defaultTab = 'WEDDING' }) {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              placeholder="+91 XXXXX XXXXX"
+              placeholder="+91 93071 95947"
             />
             {errors.phone && <span className="form-error">{errors.phone}</span>}
           </div>
@@ -255,9 +255,9 @@ export default function InquiryForm({ defaultTab = 'WEDDING' }) {
         <div className="form-submit">
           {error && (
             <div style={{
-              background: 'rgba(220, 53, 69, 0.15)',
-              border: '1px solid rgba(220, 53, 69, 0.4)',
-              color: '#ff6b6b',
+              background: 'rgba(212, 97, 107, 0.1)',
+              border: '1px solid rgba(212, 97, 107, 0.3)',
+              color: 'var(--error)',
               padding: '12px 16px',
               borderRadius: '8px',
               marginBottom: '16px',
@@ -280,3 +280,5 @@ export default function InquiryForm({ defaultTab = 'WEDDING' }) {
     </div>
   );
 }
+
+

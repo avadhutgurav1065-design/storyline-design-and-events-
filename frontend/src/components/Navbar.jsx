@@ -35,7 +35,7 @@ export default function Navbar() {
         <div className="navbar-inner">
           <Link to="/" className="navbar-logo">
             <div className="logo-circle-wrapper" style={{ width: '65px', height: '65px' }}>
-              <img src="/images/logo.jpg" alt="Storyline Logo" className="navbar-logo-img" />
+              <img src="/images/logo-final.png" alt="Storyline Logo" className="navbar-logo-img" />
             </div>
             <div>
               <div className="navbar-logo-text">STORYLINE</div>
@@ -95,3 +95,5 @@ export default function Navbar() {
     </>
   );
 }
+
+

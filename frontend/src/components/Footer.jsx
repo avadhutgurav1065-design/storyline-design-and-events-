@@ -22,13 +22,13 @@ export default function Footer() {
               We build the structure. You live the story.
             </p>
             <div className="footer-social">
-              <a href="https://instagram.com/storylinedesignevents" target="_blank" rel="noopener noreferrer" aria-label="Instagram" id="footer-instagram">
+              <a href="https://www.instagram.com/storyline_design_and_events/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Instagram" id="footer-instagram">
                 <FaInstagram />
               </a>
-              <a href="https://wa.me/919XXXXXXXXX" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" id="footer-whatsapp">
+              <a href="https://wa.me/919307195947" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" id="footer-whatsapp">
                 <FaWhatsapp />
               </a>
-              <a href="mailto:storylinedesignevents@gmail.com" aria-label="Email" id="footer-email">
+              <a href="mailto:storylinedesignsandevents@gmail.com" aria-label="Email" id="footer-email">
                 <FaEnvelope />
               </a>
             </div>
@@ -66,16 +66,16 @@ export default function Footer() {
           <div>
             <h4 className="footer-heading">Get in Touch</h4>
             <div className="footer-links">
-              <a href="mailto:storylinedesignevents@gmail.com">
-                <FaEnvelope style={{ marginRight: '8px', color: 'var(--gold)' }} />
-                storylinedesignevents@gmail.com
+              <a href="mailto:storylinedesignsandevents@gmail.com">
+                <FaEnvelope style={{ marginRight: '8px', color: 'var(--rose)' }} />
+                storylinedesignsandevents@gmail.com
               </a>
-              <a href="https://wa.me/919XXXXXXXXX" target="_blank" rel="noopener noreferrer">
-                <FaWhatsapp style={{ marginRight: '8px', color: 'var(--gold)' }} />
-                +91 9XXX XXX XXX
+              <a href="https://wa.me/919307195947" target="_blank" rel="noopener noreferrer">
+                <FaWhatsapp style={{ marginRight: '8px', color: 'var(--rose)' }} />
+                +91 93071 95947
               </a>
               <span style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                <FaMapMarkerAlt style={{ color: 'var(--gold)', marginTop: '3px', flexShrink: 0 }} />
+                <FaMapMarkerAlt style={{ color: 'var(--rose)', marginTop: '3px', flexShrink: 0 }} />
                 <span>Pune, Maharashtra, India</span>
               </span>
             </div>
@@ -91,3 +91,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+

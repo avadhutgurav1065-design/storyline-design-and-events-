@@ -1,162 +1,294 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import SectionHeading from '../components/SectionHeading';
-import TestimonialCarousel from '../components/TestimonialCarousel';
-import InquiryForm from '../components/InquiryForm';
-import { FaCogs, FaBolt, FaDesktop, FaBuilding, FaChartLine, FaShieldAlt } from 'react-icons/fa';
+import CorporateInquiryForm from '../components/CorporateInquiryForm';
+import { FaMicrophoneAlt, FaStore, FaRocket, FaChalkboardTeacher, FaMapMarkedAlt, FaTruckLoading, FaUserShield } from 'react-icons/fa';
 
 export default function Corporate() {
   useEffect(() => {
-    document.title = 'Storyline Corporate — Stage Production & Structural Rigging | Pune';
+    document.title = 'Storyline Corporate — Premium B2B Event Production | Pune';
   }, []);
 
+  // State for Dynamic Tab Buttons in Infrastructure section
+  const [activeInfra, setActiveInfra] = useState(0);
+
   const corporateServices = [
-    { icon: <FaCogs />, title: 'Stage Fabrication', desc: 'Custom-designed staging built to specification — from intimate podiums to multi-tiered performance stages for 500+ attendees.' },
-    { icon: <FaBolt />, title: 'Trussing & Rigging', desc: 'Certified structural rigging with load-tested truss systems, engineered for safety and signed off by our Production Head.' },
-    { icon: <FaDesktop />, title: 'LED & AV Production', desc: 'Custom LED backdrop integration, projection mapping, and full AV production — sound, lighting, and technical support.' },
-    { icon: <FaBuilding />, title: 'Branded Environments', desc: 'Complete venue branding — sponsor deliverables, activation zones, wayfinding, and immersive brand experiences.' },
-    { icon: <FaChartLine />, title: 'Event Management', desc: 'Full command centre operations, timeline management, vendor coordination, and on-ground execution crew.' },
-    { icon: <FaShieldAlt />, title: 'Security & Compliance', desc: 'Crowd management, access control, fire safety compliance, and emergency response planning for large gatherings.' },
+    {
+      icon: <FaMicrophoneAlt />,
+      title: 'Conferences & Summits',
+      desc: 'Architecting authoritative environments for thought leadership. We go beyond basic staging to build immersive academic and corporate spaces.',
+      details: [
+        'A/V & Stage Architecture: High-res seamless LED video walls, custom podiums, and line-array audio calibrated for vocal clarity.',
+        'Crowd Logistics: Precision seating grids, VIP barricading, and seamless digital registration infrastructure for 100 to 5,000+ delegates.',
+        'Stage Flow Control: Dedicated show-callers managing speaker transitions, green-room cues, and countdown clocks to ensure zero dead-air.'
+      ]
+    },
+    {
+      icon: <FaStore />,
+      title: 'Trade Shows & Expos',
+      desc: 'Maximizing B2B engagement through intelligent spatial mapping. We build high-gloss, standardized environments that amplify exhibitor ROI.',
+      details: [
+        'Exhibitor Infrastructure: Standardized Octanorm/Maxima shell schemes built for rapid deployment and massive scale.',
+        'Custom VIP Pavilions: Bespoke structural booth fabrication, multi-level rigging, and integrated LED branding for anchor brands.',
+        'Spatial Flow & Wayfinding: Digital signage and engineered aisle mapping to prevent bottlenecks and direct foot traffic optimally.'
+      ]
+    },
+    {
+      icon: <FaRocket />,
+      title: 'Product Launches',
+      desc: 'Creating viral, high-impact media moments. We engineer the spectacle required to make your new product the center of the industry.',
+      details: [
+        'The Reveal Mechanics: Hydraulic lifts, Kabuki drops, and synchronized lighting/laser shows to build intense anticipation.',
+        'Media & PR Architecture: Strategically placed VIP step-and-repeats and press risers with direct, clean audio feeds for broadcast.',
+        'Immersive Demo Zones: Custom-fabricated experiential booths allowing delegates hands-on interaction with the product.'
+      ]
+    },
+    {
+      icon: <FaChalkboardTeacher />,
+      title: 'Seminars & Workshops',
+      desc: 'Facilitating high-value knowledge transfer. We build intimate, modular environments designed to optimize focus and B2B deal-making.',
+      details: [
+        'Modular Environments: Custom seating pods, white-boarding stations, and frictionless tech/power integrations for hands-on bootcamps.',
+        'Networking Optimization: High-top cocktail layouts, strategic grazing tables, and ambient acoustic control.',
+        'Interactive Tech: Seamless integration of live-polling systems, Q&A mics, and dual-screen projection mapping.'
+      ]
+    }
   ];
 
-  const corporatePackages = [
+  // Dynamic Infrastructure Data
+  const infraData = [
     {
-      name: 'Essential', priceRange: '₹3 – 7 Lakh',
-      scope: 'Single-day activation or panel stage, up to 150 pax',
-      features: ['Single-day event setup', 'Stage and podium design', 'Basic sound and lighting', 'Branded backdrop', 'Registration setup', 'Day-of coordination'],
-      isPopular: false,
+      id: 0,
+      title: 'Digital Mapping & Rendering',
+      icon: <FaMapMarkedAlt />,
+      description: 'We eliminate surprises before load-in begins. Our design department builds millimeter-accurate 3D spatial maps of your chosen venue.',
+      details: [
+        { label: 'Spatial Physics & Sightlines', text: 'We calculate precise viewing angles for every seat in the house, ensuring no VIP is stuck behind a pillar or staring at a dead screen.' },
+        { label: 'Photorealistic Pre-Vis', text: 'You see the exact lighting, structural trussing, and branding placement in 4K renders before a single piece of iron is loaded onto a truck.' }
+      ]
     },
     {
-      name: 'Premium', priceRange: '₹7 – 20 Lakh',
-      scope: 'Conference/launch with custom staging, LED, branded environment',
-      features: ['Custom stage fabrication', 'LED screen integration', 'Full AV production', 'Branded environments', 'Sponsor deliverables', 'Registration & accreditation', 'Photography coverage', 'Crew management'],
-      isPopular: true,
+      id: 1,
+      title: 'Heavy Logistics & Supply Chain',
+      icon: <FaTruckLoading />,
+      description: 'Corporate venues operate on strict 24-hour turnaround windows. Our in-house fabrication and logistics crews master the master timeline.',
+      details: [
+        { label: 'Overnight Load-Ins', text: 'Managing fleets of transport vehicles, heavy iron scaffolding, and high-voltage power grids to transform a bare hall into a corporate arena overnight.' },
+        { label: 'Structural Safety Protocols', text: 'Every truss, LED wall, and sound array is rigged by certified technicians adhering to international load-bearing and safety standards.' }
+      ]
     },
     {
-      name: 'Flagship', priceRange: '₹20 Lakh +',
-      scope: 'Multi-day summit or 500+ pax build, full rigging & production',
-      features: ['All Premium features', 'Multi-day stage builds', 'Full trussing and rigging', 'Power & generator management', 'Multiple breakout rooms', 'Live streaming capability', 'Dedicated command centre', 'Security & safety management'],
-      isPopular: false,
+      id: 2,
+      title: 'VIP & Delegate Protocol',
+      icon: <FaUserShield />,
+      description: 'The highest levels of corporate hospitality. We ensure that your investors, keynote speakers, and media personnel experience absolute luxury.',
+      details: [
+        { label: 'Green Room Management', text: 'Fully catered, secure, and technologically equipped holding areas for speakers to prep and relax before hitting the stage.' },
+        { label: 'White-Glove Transfers', text: 'Seamless airport-to-venue transit networks, ensuring high-net-worth delegates are shadowed and assisted from the moment they land.' }
+      ]
+    }
+  ];
+
+  const caseStudies = [
+    {
+      src: '/images/portfolio/leadership-summit.png',
+      tags: 'LED Mapping, Stage Fabrication, Registration Flow',
+      title: '500-Pax Tech Summit'
     },
+    {
+      src: '/images/portfolio/grand-ceiling.png',
+      tags: 'Heavy Truss Rigging, 1000+ Seating Grid, VIP Security',
+      title: 'Institutional Convocation'
+    },
+    {
+      src: '/images/portfolio/corporate-stage.png',
+      tags: 'Kabuki Drop Reveal, Press Media Wall, Intelligent Lighting',
+      title: 'Brand Product Launch'
+    }
   ];
 
   return (
-    <div>
-      {/* Hero */}
-      <section className="page-hero" id="corporate-hero">
-        <div className="content">
-          <span className="label">Storyline Corporate</span>
-          <h1>Logistics. Structure. <span className="text-gold">Execution.</span></h1>
-          <div className="gold-line-center"></div>
-          <p style={{ maxWidth: '600px', margin: '0 auto', fontSize: 'var(--fs-body-lg)' }} className="text-muted">
-            Engineering-grade production for product launches, conferences, 
-            brand activations, and award nights.
-          </p>
-          <div style={{ marginTop: 'var(--space-lg)' }}>
-            <Link to="/contact" className="btn btn-primary btn-lg">Request a Proposal</Link>
-          </div>
+    <div className="corporate-page">
+      {/* ===== SECTION 1: THE HERO (THE HOOK) ===== */}
+      <section className="cinematic-hero pastel-hero" id="corporate-hero">
+        <div className="video-background-wrapper">
+          <div className="video-overlay" style={{ background: 'transparent' }}></div>
+          {/* Replace with time-lapse of stage build */}
+          <div className="background-video-placeholder" style={{ background: 'radial-gradient(circle at top left, var(--card-sage) 0%, transparent 60%), radial-gradient(circle at bottom right, var(--cream) 0%, transparent 60%)', opacity: 0.8 }}></div>
         </div>
-      </section>
 
-      {/* Services */}
-      <section className="section" id="corporate-services">
-        <SectionHeading
-          label="Capabilities"
-          title="Corporate Services"
-          description="Structural precision meets flawless execution."
-        />
-        <div className="container">
-          <div className="grid-3">
-            {corporateServices.map((service, i) => (
-              <ScrollReveal key={i}>
-                <div className="service-card">
-                  <div className="service-card-icon">{service.icon}</div>
-                  <h3>{service.title}</h3>
-                  <p>{service.desc}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Portfolio */}
-      <section className="section" style={{ background: 'var(--charcoal-deep)' }} id="corporate-portfolio">
-        <SectionHeading label="Case Studies" title="Corporate Portfolio" />
-        <div className="container">
-          <div className="grid-2">
-            <ScrollReveal>
-              <div className="portfolio-card">
-                <img src="/images/portfolio/corporate-stage.png" alt="The Corporate Stage" />
-                <div className="portfolio-card-overlay">
-                  <span className="portfolio-card-category">Product Launch</span>
-                  <h3>The Corporate Stage</h3>
-                  <p>Custom LED backdrop. 500+ attendee staging. 24-hour build turnaround.</p>
-                </div>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal>
-              <div className="portfolio-card">
-                <img src="/images/portfolio/leadership-summit.png" alt="Leadership Summit" />
-                <div className="portfolio-card-overlay">
-                  <span className="portfolio-card-category">Leadership Summit</span>
-                  <h3>Leadership Summit 2026</h3>
-                  <p>3-day multi-stage build. 4 breakout rooms. 800+ attendees.</p>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-          <div style={{ textAlign: 'center', marginTop: 'var(--space-lg)' }}>
-            <Link to="/portfolio" className="btn btn-outline">View Full Portfolio</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Packages */}
-      <section className="section" id="corporate-packages">
-        <SectionHeading
-          label="Investment"
-          title="Corporate Packages"
-          description="Structured by scope — every quote is finalised against real requirements."
-        />
-        <div className="container">
-          <div className="grid-3">
-            {corporatePackages.map((pkg, i) => (
-              <ScrollReveal key={i}>
-                <div className={`package-card ${pkg.isPopular ? 'popular' : ''}`}>
-                  <h3>{pkg.name}</h3>
-                  <div className="package-price">{pkg.priceRange}</div>
-                  <div className="package-scope">{pkg.scope}</div>
-                  <ul className="package-features">
-                    {pkg.features.map((f, j) => <li key={j}>{f}</li>)}
-                  </ul>
-                  <Link to="/contact" className={`btn ${pkg.isPopular ? 'btn-primary' : 'btn-outline'}`} style={{ width: '100%' }}>
-                    Request Proposal
-                  </Link>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="section" style={{ background: 'var(--charcoal-deep)' }} id="corporate-testimonials">
-        <SectionHeading label="Client Confidence" title="What Our Corporate Clients Say" />
-        <div className="container-narrow">
+        <div className="content container">
           <ScrollReveal>
-            <TestimonialCarousel testimonials={[]} />
+            <h1 className="mega-heading" style={{ marginBottom: '20px', lineHeight: 1.1, color: 'var(--text-dark)' }}>
+              Structural Precision.<br />
+              B2B Scale.<br />
+              <span className="accent">Zero-Error Execution.</span>
+            </h1>
+          </ScrollReveal>
+          
+          <ScrollReveal animation="reveal-scale">
+            <p style={{ fontSize: '1.2rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '25px', color: 'var(--rose-deeper)' }}>
+              Premium Corporate Event Production | Pune & Beyond
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal animation="reveal-scale">
+            <div className="gold-line-center" style={{ marginBottom: '25px', width: '80px', height: '4px', background: 'var(--rose-deeper)' }}></div>
+            <p className="hero-body-text" style={{ maxWidth: '800px', margin: '0 auto var(--space-2xl)', fontSize: '1.2rem', lineHeight: '1.7', color: 'var(--text-dark)', opacity: 0.9 }}>
+              Corporate events are not parties; they are high-stakes brand investments. We provide the architectural backbone, A/V engineering, and logistical precision to ensure your summits, expos, and product launches are executed flawlessly.
+            </p>
+            <a href="#b2b-intake" className="btn btn-primary btn-lg hover-lift" style={{ letterSpacing: '0.05em' }}>
+              Submit Your RFP
+            </a>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section" id="corporate-inquiry">
-        <SectionHeading label="Get Started" title="Request a Corporate Proposal" />
+      {/* ===== SECTION 2: THE CORPORATE ARSENAL (SERVICE MATRIX - DEEP DIVE) ===== */}
+      <section className="section" id="corporate-services" style={{ background: 'var(--cream)' }}>
+        <SectionHeading
+          label="Engineered for Scale"
+          title="The Corporate Arsenal"
+          description="Dedicated B2B production services designed to amplify your brand authority. Hover for technical execution details."
+        />
+        <div className="container-wide mt-5">
+          <div className="corporate-arsenal-grid">
+            {corporateServices.map((service, idx) => (
+              <ScrollReveal key={idx} className="arsenal-card-wrapper">
+                <div className="arsenal-card deep-dive-card">
+                  <div className="arsenal-header-row">
+                    <div className="arsenal-icon">{service.icon}</div>
+                    <h3>{service.title}</h3>
+                  </div>
+                  <p className="arsenal-intro-desc">{service.desc}</p>
+                  <div className="arsenal-divider"></div>
+                  <ul className="deep-dive-list">
+                    {service.details.map((item, i) => {
+                      const [strongText, restText] = item.split(': ');
+                      return (
+                        <li key={i}>
+                          {restText ? (
+                            <><span className="bullet-point"></span><strong>{strongText}: </strong>{restText}</>
+                          ) : (
+                            item
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SECTION 3: THE OPERATIONAL MATRIX (DYNAMIC TABS) ===== */}
+      <section className="section" id="corporate-operations" style={{ background: 'var(--blush-soft)', color: 'var(--text-dark)' }}>
+        <SectionHeading
+          label="Why B2B Leaders Choose Us"
+          title="The Infrastructure Behind the Event"
+          description="We do not outsource your brand's reputation. Our dedicated in-house departments control every logistical variable from blueprint to load-out."
+        />
+        
+        <div className="container-wide" style={{ marginTop: 'var(--space-2xl)' }}>
+          
+          {/* Dynamic Tab Buttons */}
+          <div className="dynamic-tabs-container">
+            {infraData.map((tab) => (
+              <button 
+                key={tab.id}
+                className={`dynamic-tab-btn ${activeInfra === tab.id ? 'active' : ''}`}
+                onClick={() => setActiveInfra(tab.id)}
+              >
+                <div className="tab-icon">{tab.icon}</div>
+                <div className="tab-text">
+                  <h3 style={{ fontSize: '1.2rem' }}>{tab.title}</h3>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Dynamic Content Panel */}
+          <div className="dynamic-content-panel">
+            <div className="content-inner keyframe-fade-in" key={activeInfra}>
+              <div className="panel-header">
+                <h2>{infraData[activeInfra].title}</h2>
+                <p className="panel-desc">{infraData[activeInfra].description}</p>
+                <div className="gold-line-left" style={{ background: 'var(--rose-deeper)' }}></div>
+              </div>
+              
+              <div className="panel-grid">
+                {infraData[activeInfra].details.map((detail, idx) => (
+                  <div key={idx} className="panel-detail-item">
+                    <h4>{detail.label}</h4>
+                    <p>{detail.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ===== SECTION 4: THE PORTFOLIO & CASE STUDIES (THE PROOF) ===== */}
+      <section className="section" id="corporate-portfolio" style={{ background: 'var(--cream)' }}>
+        <div className="container" style={{ marginBottom: 'var(--space-3xl)' }}>
+          <SectionHeading
+            label="The Execution Ground"
+            title="Corporate Case Studies"
+            description="Delivering structural integrity for Pune's fastest-growing brands and institutions."
+          />
+        </div>
+
+        <div className="container-wide">
+          <div className="case-study-grid">
+            {caseStudies.map((study, idx) => (
+              <ScrollReveal key={idx} className="case-study-card">
+                <img src={study.src} alt={study.title} />
+                <div className="case-study-overlay">
+                  <div className="overlay-content">
+                    <h3>{study.title}</h3>
+                    <div className="tech-tags">
+                      {study.tags.split(', ').map((tag, tIdx) => (
+                        <span key={tIdx} className="tech-tag">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <div className="text-center" style={{ marginTop: 'var(--space-3xl)' }}>
+            <ScrollReveal>
+              <h3 style={{ fontSize: '1.2rem', marginBottom: 'var(--space-md)', color: 'var(--text-dark)' }}>
+                Review our technical capabilities, A/V inventory, and structural guidelines.
+              </h3>
+              <a href="#" className="btn btn-outline btn-lg hover-lift">
+                📥 Download the Corporate Production Deck
+              </a>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SECTION 5: THE B2B INTAKE (THE ENQUIRY) ===== */}
+      <section className="section" id="b2b-intake" style={{ background: 'var(--rose-muted)' }}>
         <div className="container-narrow">
+          <div className="text-center" style={{ marginBottom: 'var(--space-2xl)' }}>
+            <ScrollReveal>
+              <h2 className="mega-heading" style={{ fontSize: '3rem', color: 'var(--text-dark)', marginBottom: 'var(--space-md)' }}>Initiate Your Project Build.</h2>
+              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: '1.7' }}>
+                Whether you have a finalized RFP or need our team to architect the event from scratch, submit your scope below. Our production leads will review your logistical requirements and schedule a technical consultation.
+              </p>
+            </ScrollReveal>
+          </div>
+          
           <ScrollReveal>
-            <InquiryForm defaultTab="CORPORATE" />
+            <CorporateInquiryForm />
           </ScrollReveal>
         </div>
       </section>

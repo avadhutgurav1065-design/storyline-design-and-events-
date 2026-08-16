@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const teamMembers = [
@@ -6,7 +6,7 @@ const teamMembers = [
     id: '01',
     name: 'Avadhut Gurav',
     title: 'Founder / Production & Technical Expert',
-    bio: 'The architectural force behind Storyline. Avadhut merges deep operational and systems expertise to plan the complex logistics behind luxury weddings and massive corporate launches alike — run on a strict zero-error philosophy, from structural rigging to full technical integration.',
+    bio: 'The architectural force behind Storyline. Avadhut merges deep operational and systems expertise to plan the complex logistics behind luxury weddings and massive corporate launches alike â€” run on a strict zero-error philosophy, from structural rigging to full technical integration.',
     tags: ['Large-Scale Operations', 'Structural Integrity', 'Systems Integration'],
     image: '/images/team/avadhut.jpg',
     initials: 'AG'
@@ -15,7 +15,7 @@ const teamMembers = [
     id: '02',
     name: 'Jayesh Mahajan',
     title: 'Co-Architect / Design & Animation Head',
-    bio: 'The visual architect behind every Storyline build. Before a single truss is rigged, Jayesh renders the venue in full 3D — animated stage blueprints the client can walk through, so the final physical build matches the creative vision exactly.',
+    bio: 'The visual architect behind every Storyline build. Before a single truss is rigged, Jayesh renders the venue in full 3D â€” animated stage blueprints the client can walk through, so the final physical build matches the creative vision exactly.',
     tags: ['3D Spatial Design', 'Venue Rendering', 'Technical Stage Mapping'],
     image: '/images/team/jayesh.jpg',
     initials: 'JM'
@@ -24,7 +24,7 @@ const teamMembers = [
     id: '03',
     name: 'Aishwarya Thite',
     title: 'Hospitality & Rituals Head',
-    bio: 'The anchor of the luxury wedding division. Aishwarya manages seamless VIP check-ins and white-glove hospitality while orchestrating complex traditional rituals on a strict timeline — keeping the emotional narrative of the day completely uninterrupted.',
+    bio: 'The anchor of the luxury wedding division. Aishwarya manages seamless VIP check-ins and white-glove hospitality while orchestrating complex traditional rituals on a strict timeline â€” keeping the emotional narrative of the day completely uninterrupted.',
     tags: ['VIP Guest Relations', 'Ritual Coordination', 'Event Flow'],
     image: '/images/team/aishwarya.jpg',
     initials: 'AT'
@@ -33,7 +33,7 @@ const teamMembers = [
     id: '04',
     name: 'Rutuja Thite',
     title: 'Marketing Head & Celebrity Mgr',
-    bio: 'The force behind Storyline\'s brand positioning and elite client relations. Rutuja manages high-profile corporate collaborations and acts as direct liaison for HNI and celebrity clients — with absolute discretion at every step.',
+    bio: 'The force behind Storyline\'s brand positioning and elite client relations. Rutuja manages high-profile corporate collaborations and acts as direct liaison for HNI and celebrity clients â€” with absolute discretion at every step.',
     tags: ['PR & Communications', 'Talent Management', 'Brand Positioning'],
     image: '/images/team/rutuja.jpg',
     initials: 'RT'
@@ -42,7 +42,7 @@ const teamMembers = [
     id: '05',
     name: 'Devesh Agrawal',
     title: 'Production & Execution Head',
-    bio: 'The commander on the ground. When a venue needs a 12-hour overnight transformation, Devesh leads the charge — bridging digital blueprint and physical reality, directing fabrication, floral and staging crews to build every element safely and exactly to spec.',
+    bio: 'The commander on the ground. When a venue needs a 12-hour overnight transformation, Devesh leads the charge â€” bridging digital blueprint and physical reality, directing fabrication, floral and staging crews to build every element safely and exactly to spec.',
     tags: ['On-Site Fabrication', 'Crew Management', 'Rapid Transformation'],
     image: '/images/team/devesh.jpg',
     initials: 'DA'
@@ -51,7 +51,7 @@ const teamMembers = [
     id: '06',
     name: 'Adesh Ghanwat',
     title: 'Logistics Head',
-    bio: 'The backbone of Storyline\'s supply chain. Moving structural iron trusses, delicate florals and heavy lighting rigs across Pune takes military-level precision — Adesh controls the timeline so the right assets hit the loading dock at the exact right minute.',
+    bio: 'The backbone of Storyline\'s supply chain. Moving structural iron trusses, delicate florals and heavy lighting rigs across Pune takes military-level precision â€” Adesh controls the timeline so the right assets hit the loading dock at the exact right minute.',
     tags: ['Supply Chain', 'Vendor Coordination', 'Timeline Enforcement'],
     image: '/images/team/adesh.jpg',
     initials: 'AG'
@@ -116,7 +116,7 @@ export default function Team() {
               className="team-modal-content"
               onClick={(e) => e.stopPropagation()}
             >
-              <button className="team-modal-close" onClick={() => setSelectedId(null)}>×</button>
+              <button className="team-modal-close" onClick={() => setSelectedId(null)}>Ã—</button>
               
               <motion.img 
                 layoutId={`card-image-${selectedId}`}
@@ -177,3 +177,4 @@ export default function Team() {
     </div>
   );
 }
+

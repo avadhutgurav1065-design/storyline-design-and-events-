@@ -2,145 +2,282 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from '../components/ScrollReveal';
 import SectionHeading from '../components/SectionHeading';
-import InquiryForm from '../components/InquiryForm';
-import { FaFileAlt, FaPaintBrush, FaIdCard, FaGift, FaBullhorn, FaChair } from 'react-icons/fa';
+import DesignStudioForm from '../components/DesignStudioForm';
 
 export default function DesignStudio() {
-  const [activeCategory, setActiveCategory] = useState('all');
-
   useEffect(() => {
-    document.title = 'Design Studio — Creative & Print Services | Storyline Design & Events';
+    document.title = 'Design Studio — Creative, Print & 3D Rendering | Storyline';
   }, []);
 
-  const categories = [
-    { key: 'all', label: 'All Services' },
-    { key: 'stationery', label: 'Stationery & Invites' },
-    { key: 'table', label: 'On-Table & Seating' },
-    { key: 'signage', label: 'Signage & Wayfinding' },
-    { key: 'passes', label: 'Passes & Credentials' },
-    { key: 'gifting', label: 'Gifting & Packaging' },
-    { key: 'marketing', label: 'Marketing & Print' },
-  ];
+  // State for the Master Creative Catalog accordions
+  const [activeCatalog, setActiveCatalog] = useState(0);
 
-  const items = [
-    // Stationery & Invites
-    { name: 'Save the Date Design', cat: 'stationery', icon: <FaFileAlt /> },
-    { name: 'Invitation Card Design', cat: 'stationery', icon: <FaFileAlt /> },
-    { name: 'RSVP Card Design', cat: 'stationery', icon: <FaFileAlt /> },
-    { name: 'Welcome Card Design', cat: 'stationery', icon: <FaFileAlt /> },
-    { name: 'Thank You Card Design', cat: 'stationery', icon: <FaFileAlt /> },
-    { name: 'Wedding Program Card', cat: 'stationery', icon: <FaFileAlt /> },
-    { name: 'Digital Invitation Design', cat: 'stationery', icon: <FaFileAlt /> },
-    { name: 'Social Media Invite Design', cat: 'stationery', icon: <FaFileAlt /> },
-    // On-Table & Seating
-    { name: 'Tent Card Design', cat: 'table', icon: <FaChair /> },
-    { name: 'Table Number Design', cat: 'table', icon: <FaChair /> },
-    { name: 'Name Card / Place Card', cat: 'table', icon: <FaChair /> },
-    { name: 'Seating Card Design', cat: 'table', icon: <FaChair /> },
-    { name: 'Menu Card Design', cat: 'table', icon: <FaChair /> },
-    { name: 'Menu Stand Design', cat: 'table', icon: <FaChair /> },
-    { name: 'Table Topper Design', cat: 'table', icon: <FaChair /> },
-    // Signage & Wayfinding
-    { name: 'Welcome Board Design', cat: 'signage', icon: <FaPaintBrush /> },
-    { name: 'Signage Design', cat: 'signage', icon: <FaPaintBrush /> },
-    { name: 'Direction Board Design', cat: 'signage', icon: <FaPaintBrush /> },
-    { name: 'Standee Design', cat: 'signage', icon: <FaPaintBrush /> },
-    { name: 'Backdrop Design', cat: 'signage', icon: <FaPaintBrush /> },
-    { name: 'Welcome Backdrop Design', cat: 'signage', icon: <FaPaintBrush /> },
-    { name: 'Photo Booth Frame Design', cat: 'signage', icon: <FaPaintBrush /> },
-    // Passes & Credentials
-    { name: 'Entry Pass Design', cat: 'passes', icon: <FaIdCard /> },
-    { name: 'VIP Pass Design', cat: 'passes', icon: <FaIdCard /> },
-    { name: 'ID Card / Badge Design', cat: 'passes', icon: <FaIdCard /> },
-    { name: 'Lanyard Design', cat: 'passes', icon: <FaIdCard /> },
-    { name: 'Certificate Design', cat: 'passes', icon: <FaIdCard /> },
-    // Gifting & Packaging
-    { name: 'Gift Tag Design', cat: 'gifting', icon: <FaGift /> },
-    { name: 'Return Gift Tag Design', cat: 'gifting', icon: <FaGift /> },
-    { name: 'Sticker Design', cat: 'gifting', icon: <FaGift /> },
-    { name: 'Label Design', cat: 'gifting', icon: <FaGift /> },
-    { name: 'Envelope Design', cat: 'gifting', icon: <FaGift /> },
-    { name: 'Bag / Gift Bag Design', cat: 'gifting', icon: <FaGift /> },
-    { name: 'Box Packaging Design', cat: 'gifting', icon: <FaGift /> },
-    { name: 'Hamper Card Design', cat: 'gifting', icon: <FaGift /> },
-    { name: 'Bottle Label Design', cat: 'gifting', icon: <FaGift /> },
-    { name: 'Water Bottle Sticker', cat: 'gifting', icon: <FaGift /> },
-    // Marketing & Print
-    { name: 'Brochure Design', cat: 'marketing', icon: <FaBullhorn /> },
-    { name: 'Flyer Design', cat: 'marketing', icon: <FaBullhorn /> },
-    { name: 'Poster Design', cat: 'marketing', icon: <FaBullhorn /> },
-    { name: 'Banner Design', cat: 'marketing', icon: <FaBullhorn /> },
-    { name: 'Event Schedule Card', cat: 'marketing', icon: <FaBullhorn /> },
-    { name: 'Agenda Card Design', cat: 'marketing', icon: <FaBullhorn /> },
-    { name: 'Instagram Story / Post', cat: 'marketing', icon: <FaBullhorn /> },
+  const catalogData = [
+    {
+      id: 0,
+      title: 'Digital & Print Stationery',
+      subtitle: 'The First Impression',
+      desc: 'Setting the exact tone of the event months before the guests arrive.',
+      items: [
+        'Save the Date Design',
+        'Custom Invitation Card Design',
+        'Digital & Motion Invitation Design',
+        'Social Media Invite Assets',
+        'RSVP Card Design',
+        'Welcome Card Design',
+        'Wedding / Event Program Card',
+        'Thank You Card Design'
+      ]
+    },
+    {
+      id: 1,
+      title: 'Spatial Graphics & Wayfinding',
+      subtitle: 'The Navigation',
+      desc: 'Transforming the venue with structural elegance and clear, branded direction.',
+      items: [
+        'Massive Welcome Board Design',
+        'Directional Board Design',
+        'Event Signage Design',
+        'Free-Standing Standee Design',
+        'Structural Backdrop Design',
+        'Dedicated Welcome Backdrop Design',
+        'Custom Photo Booth Frame Design'
+      ]
+    },
+    {
+      id: 2,
+      title: 'Premium Tablescapes & Dining',
+      subtitle: 'The Guest Experience',
+      desc: 'The micro-details that command attention when guests sit down.',
+      items: [
+        'Calligraphy Name Card / Place Card',
+        'Seating Card Design',
+        'Custom Table Number Design',
+        'Menu Card Design',
+        'Acrylic / Wooden Menu Stand Design',
+        'Table Topper Design',
+        'Structured Tent Card Design'
+      ]
+    },
+    {
+      id: 3,
+      title: 'VIP Access & Corporate Credentials',
+      subtitle: 'The Security & Protocol',
+      desc: 'Flawless branding for high-scale conferences and institutional setups.',
+      items: [
+        'VIP Pass Design',
+        'General Entry Pass Design',
+        'Corporate ID Card / Badge Design',
+        'Custom Lanyard Design',
+        'Premium Certificate Design'
+      ]
+    },
+    {
+      id: 4,
+      title: 'Gifting, Packaging & Touchpoints',
+      subtitle: 'The Takeaway',
+      desc: 'The final physical memory your guests and delegates take home.',
+      items: [
+        'Box Packaging Design',
+        'Bag / Gift Bag Design',
+        'Hamper Card Design',
+        'Custom Envelope Design',
+        'Gift Tag Design',
+        'Return Gift Tag Design',
+        'Premium Sticker Design',
+        'Custom Label Design',
+        'Bottle Label Design',
+        'Water Bottle Sticker'
+      ]
+    },
+    {
+      id: 5,
+      title: 'Marketing & B2B Collateral',
+      subtitle: 'The Campaign',
+      desc: 'High-conversion marketing materials for expos, tech summits, and brand launches.',
+      items: [
+        'Multi-page Brochure Design',
+        'Promotional Flyer Design',
+        'Large-Format Poster Design',
+        'Flex & Vinyl Banner Design',
+        'Event Schedule Card',
+        'Pocket Agenda Card Design'
+      ]
+    }
   ];
-
-  const filtered = activeCategory === 'all'
-    ? items
-    : items.filter(item => item.cat === activeCategory);
 
   return (
-    <div>
-      {/* Hero */}
-      <section className="page-hero" id="studio-hero">
-        <div className="content">
-          <span className="label">Design Studio</span>
-          <h1>Creative & <span className="text-gold">Print Services</span></h1>
-          <div className="gold-line-center"></div>
-          <p style={{ maxWidth: '600px', margin: '0 auto', fontSize: 'var(--fs-body-lg)' }} className="text-muted">
-            Every printed, signed, and digital touchpoint of your event — 
-            designed in-house for visual consistency.
-          </p>
-          <div style={{ marginTop: 'var(--space-lg)' }}>
-            <Link to="/contact" className="btn btn-primary btn-lg">Book Design Services</Link>
+    <div className="design-studio-page">
+      {/* ===== SECTION 1: THE HERO (SPLIT SCREEN) ===== */}
+      <section className="split-hero">
+        <div className="split-half left-side">
+          <div className="tech-grid-overlay"></div>
+          {/* Placeholder for 3D stage rendering video/image */}
+          <div className="split-bg bg-3d"></div>
+          <div className="split-content left">
+            <h1 className="split-title">The Visual & Digital Architecture</h1>
+            <p className="split-sub">3D Spatial Rendering</p>
           </div>
+        </div>
+        
+        <div className="split-half right-side">
+          {/* Placeholder for Print/Reels montage */}
+          <div className="split-bg cinematic-bg"></div>
+          <div className="split-content right">
+            <h1 className="split-title">of Your Event.</h1>
+            <p className="split-sub">Premium Print & Cinematic Content</p>
+          </div>
+        </div>
+
+        <div className="hero-center-box keyframe-fade-in">
+          <p className="center-box-text">
+            Storyline Design & Events controls your entire aesthetic ecosystem. From the first digital invitation and the physical gold-foiled menu on the table, to the viral cinematic Reels that document the final production. Absolute brand consistency, engineered entirely in-house.
+          </p>
+          <a href="#studio-intake" className="btn btn-primary mt-4">Commission the Studio</a>
         </div>
       </section>
 
-      {/* Categories & Items */}
-      <section className="section" id="studio-catalog">
-        <SectionHeading
-          label="Full Catalog"
-          title="Design Services"
-          description="Available as part of a full event package or as à la carte bookings."
-        />
-        <div className="container">
-          <div className="studio-categories">
-            {categories.map((cat) => (
-              <button
-                key={cat.key}
-                className={`studio-category-btn ${activeCategory === cat.key ? 'active' : ''}`}
-                onClick={() => setActiveCategory(cat.key)}
-                id={`studio-cat-${cat.key}`}
-              >
-                {cat.label}
-              </button>
-            ))}
-          </div>
+      {/* ===== SECTION 2: THE REEL ENGINE (PASTEL & MODERN) ===== */}
+      <section className="section reel-engine-section" style={{ background: 'var(--card-pink)', color: 'var(--text-dark)' }}>
+        <div className="container-wide">
+          <div className="reel-grid">
+            <div className="reel-content">
+              <ScrollReveal>
+                <h2 className="mega-heading" style={{ color: 'var(--text-dark)' }}>Event Content Architecture.</h2>
+                <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: 'var(--space-2xl)', fontWeight: '500' }}>
+                  A premium event only lasts 24 hours, but the digital footprint lasts forever. We do not just film; we script, shoot, and engineer high-retention cinematic content designed to dominate social media.
+                </p>
+              </ScrollReveal>
 
-          <div className="studio-grid">
-            {filtered.map((item, i) => (
-              <ScrollReveal key={i}>
-                <div className="studio-item">
-                  <div className="studio-item-icon">{item.icon}</div>
-                  <span>{item.name}</span>
+              <div className="reel-features">
+                <ScrollReveal animation="reveal-left">
+                  <div className="reel-feature">
+                    <h4 style={{ color: 'var(--rose-deeper)' }}>Pre-Event Hype</h4>
+                    <p>Teaser Reels, digital motion-graphic invitations, and countdown campaigns to build anticipation.</p>
+                  </div>
+                </ScrollReveal>
+                <ScrollReveal animation="reveal-left">
+                  <div className="reel-feature">
+                    <h4 style={{ color: 'var(--rose-deeper)' }}>Live Event Coverage</h4>
+                    <p>Rapid-turnaround Reel production highlighting the venue architecture, VIP entrances, and critical brand/ritual moments.</p>
+                  </div>
+                </ScrollReveal>
+                <ScrollReveal animation="reveal-left">
+                  <div className="reel-feature">
+                    <h4 style={{ color: 'var(--rose-deeper)' }}>Corporate & B2B Content</h4>
+                    <p>Professional keynote highlight videos, exhibitor showcase Reels, and cinematic wrap-up videos for your company's LinkedIn and Instagram.</p>
+                  </div>
+                </ScrollReveal>
+                <ScrollReveal animation="reveal-left">
+                  <div className="reel-feature">
+                    <h4 style={{ color: 'var(--rose-deeper)' }}>Social Asset Design</h4>
+                    <p>Custom-branded Instagram Stories, grid posts, and digital agenda cards perfectly formatted for mobile viewing.</p>
+                  </div>
+                </ScrollReveal>
+              </div>
+            </div>
+            
+            <div className="reel-mockup-wrapper">
+              <ScrollReveal animation="reveal-scale">
+                <div className="mobile-reel-mockup">
+                  <div className="mobile-screen">
+                    <div className="video-placeholder">
+                      {/* Video element will go here, currently a stylized placeholder */}
+                      <span className="play-icon">▶</span>
+                      <p>LIVE REEL FOOTAGE</p>
+                    </div>
+                  </div>
+                  <div className="neon-glow"></div>
                 </div>
               </ScrollReveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SECTION 3: THE MASTER CREATIVE CATALOG ===== */}
+      <section className="section" id="creative-catalog" style={{ background: 'var(--cream)' }}>
+        <SectionHeading
+          label="The Deep Dive"
+          title="The Comprehensive Design Arsenal"
+          description="Every physical and digital touchpoint, meticulously designed and fabricated by our in-house studio."
+        />
+
+        <div className="container-wide mt-5">
+          <div className="creative-accordion-container">
+            {catalogData.map((catalog) => (
+              <div 
+                key={catalog.id} 
+                className={`creative-accordion-item ${activeCatalog === catalog.id ? 'active' : ''}`}
+              >
+                <button 
+                  className="accordion-header"
+                  onClick={() => setActiveCatalog(activeCatalog === catalog.id ? null : catalog.id)}
+                >
+                  <div className="header-content">
+                    <h3>{catalog.title}</h3>
+                    <span className="subtitle">({catalog.subtitle})</span>
+                  </div>
+                  <div className="accordion-icon">
+                    {activeCatalog === catalog.id ? '−' : '+'}
+                  </div>
+                </button>
+                
+                <div className="accordion-body">
+                  <div className="accordion-inner">
+                    <p className="catalog-desc">{catalog.desc}</p>
+                    <div className="catalog-items-grid">
+                      {catalog.items.map((item, idx) => (
+                        <div key={idx} className="catalog-item">
+                          <span className="bullet"></span>
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section" style={{ background: 'var(--charcoal-deep)' }} id="studio-inquiry">
-        <SectionHeading
-          label="Get Started"
-          title="Book Design Services"
-          description="Tell us what you need. We will provide a custom quote."
-        />
+      {/* ===== SECTION 4: THE 3D RENDERING DEPARTMENT ===== */}
+      <section className="section" style={{ background: 'var(--white)', padding: 0 }}>
+        <div className="blueprint-split">
+          <div className="blueprint-image left-render">
+            <div className="label">DIGITAL 3D RENDER</div>
+          </div>
+          
+          <div className="blueprint-content">
+            <ScrollReveal>
+              <h2 className="mega-heading">See It Before We Build It.</h2>
+              <p>
+                We eliminate all guesswork and financial risk. For high-ticket corporate builds and luxury weddings, our design studio renders your exact venue in 3D space. You will walk through the digital blueprint, approve the structural layout, and sign off on the exact aesthetic before a single piece of iron is loaded onto our trucks.
+              </p>
+            </ScrollReveal>
+          </div>
+          
+          <div className="blueprint-image right-reality">
+            <div className="label">PHYSICAL BUILD</div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SECTION 5: THE STUDIO INTAKE ===== */}
+      <section className="section" id="studio-intake" style={{ background: 'var(--blush-soft)' }}>
         <div className="container-narrow">
+          <div className="text-center" style={{ marginBottom: 'var(--space-2xl)' }}>
+            <ScrollReveal>
+              <h2 className="mega-heading" style={{ fontSize: '3rem', color: 'var(--text-dark)', marginBottom: 'var(--space-md)' }}>Build Your Aesthetic Identity.</h2>
+              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: '1.7' }}>
+                Select the scope of your design requirements below. Our studio lead will review your brief and initiate a technical consultation.
+              </p>
+            </ScrollReveal>
+          </div>
+          
           <ScrollReveal>
-            <InquiryForm defaultTab="DESIGN_STUDIO" />
+            <DesignStudioForm />
           </ScrollReveal>
         </div>
       </section>

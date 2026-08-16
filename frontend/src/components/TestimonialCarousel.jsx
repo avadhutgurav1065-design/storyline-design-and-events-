@@ -45,7 +45,7 @@ export default function TestimonialCarousel({ testimonials = [] }) {
     <div className="testimonial-carousel" id="testimonial-carousel">
       <div className="testimonial-card" style={{ minHeight: '320px' }}>
         <div className="testimonial-stars">
-          {'★'.repeat(testimonials[current]?.rating || 5)}
+          {'⭐'.repeat(testimonials[current]?.rating || 5)}
         </div>
         <div className="testimonial-quote-mark">"</div>
         <p className="testimonial-text">
@@ -71,7 +71,7 @@ export default function TestimonialCarousel({ testimonials = [] }) {
                 height: '8px',
                 borderRadius: '4px',
                 border: 'none',
-                background: current === index ? 'var(--gold)' : 'var(--charcoal-light)',
+                background: current === index ? 'var(--rose)' : 'var(--rose-light)',
                 transition: 'all 0.3s ease',
                 cursor: 'pointer',
               }}

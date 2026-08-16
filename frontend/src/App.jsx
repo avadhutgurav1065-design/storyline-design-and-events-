@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Loader from './components/Loader';
+import LiveEffects from './components/LiveEffects';
 import Home from './pages/Home';
 import Weddings from './pages/Weddings';
 import Corporate from './pages/Corporate';
@@ -43,6 +44,7 @@ function App() {
   return (
     <Router>
       <Loader />
+      <LiveEffects />
       <ScrollToTop />
       <Layout>
         <Routes>
