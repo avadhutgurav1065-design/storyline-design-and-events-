@@ -73,23 +73,20 @@ export default function Home() {
       {/* ===== HERO: CENTRAL TEXT WITH FADED BACKGROUND COLLAGE ===== */}
       <section className="hero" id="hero" style={{ background: 'var(--cream)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
         
-        {/* Faded Background Photo Collage */}
+        {/* Faded Background Video */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
           {/* Aesthetic dark/light mix background glow */}
           <div style={{ position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none', background: 'radial-gradient(circle at center, transparent 0%, var(--cream) 80%), radial-gradient(circle at 80% 20%, rgba(164, 105, 127, 0.4) 0%, transparent 70%), radial-gradient(circle at 20% 80%, rgba(117, 141, 113, 0.4) 0%, transparent 70%)' }}></div>
           
-          <div className="collage-img" style={{ position: 'absolute', top: '10%', left: '5%', width: '25vw', height: '40vh', borderRadius: '16px', overflow: 'hidden', animationDelay: '0.2s', opacity: 0.25 }}>
-            <img src="/images/portfolio/grand-ceiling.png" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
-          </div>
-          <div className="collage-img" style={{ position: 'absolute', bottom: '5%', right: '10%', width: '30vw', height: '45vh', borderRadius: '16px', overflow: 'hidden', animationDelay: '0.4s', opacity: 0.25 }}>
-            <img src="/images/portfolio/royal-mandap.png" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
-          </div>
-          <div className="collage-img" style={{ position: 'absolute', top: '15%', right: '15%', width: '15vw', height: '15vw', borderRadius: '50%', overflow: 'hidden', animationDelay: '0.6s', opacity: 0.25 }}>
-            <img src="/images/portfolio/corporate-stage.png" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
-          </div>
-          <div className="collage-img" style={{ position: 'absolute', bottom: '15%', left: '15%', width: '20vw', height: '20vw', borderRadius: '50%', overflow: 'hidden', animationDelay: '0.8s', opacity: 0.25 }}>
-            <img src="/images/portfolio/leadership-summit.png" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
-          </div>
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4 }}
+          >
+            <source src="/videos/hero-video.mp4" type="video/mp4" />
+          </video>
         </div>
         
         <div className="container" style={{ zIndex: 10, position: 'relative', width: '100%', textAlign: 'center' }}>
@@ -273,3 +270,4 @@ export default function Home() {
     </div>
   );
 }
+
