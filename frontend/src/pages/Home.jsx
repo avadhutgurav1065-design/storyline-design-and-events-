@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import ScrollReveal from '../components/ScrollReveal';
+import { motion } from 'framer-motion';
+// import ScrollReveal from '../components/ScrollReveal'; // Replaced by framer-motion
 import SectionHeading from '../components/SectionHeading';
 import TestimonialCarousel from '../components/TestimonialCarousel';
 import InquiryForm from '../components/InquiryForm';
@@ -90,21 +91,39 @@ export default function Home() {
         </div>
         
         <div className="container" style={{ zIndex: 10, position: 'relative', width: '100%', textAlign: 'center' }}>
-          <ScrollReveal>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
+          >
             <h1 className="mega-heading" style={{ textAlign: 'center', marginBottom: '20px', lineHeight: 1 }}>
-              <span className="text-reveal-mask"><span className="text-reveal-item delay-1">Transform Your</span></span><br />
-              <span className="text-reveal-mask"><span className="text-reveal-item delay-2">Dream Event</span></span><br />
-              <span className="text-reveal-mask"><span className="text-reveal-item delay-3 accent">Into Reality</span></span>
+              <motion.span 
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
+                className="text-reveal-mask" style={{ display: 'inline-block' }}>Transform Your</motion.span><br />
+              <motion.span 
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
+                className="text-reveal-mask" style={{ display: 'inline-block' }}>Dream Event</motion.span><br />
+              <motion.span 
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}
+                className="text-reveal-mask accent" style={{ display: 'inline-block' }}>Into Reality</motion.span>
             </h1>
-          </ScrollReveal>
+          </motion.div>
           
-          <ScrollReveal animation="reveal-scale">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+          >
             <p style={{ textAlign: 'center', fontSize: '1.2rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '40px', color: 'var(--rose-deeper)' }}>
               Unforgettable Memories Since 2008
             </p>
-          </ScrollReveal>
+          </motion.div>
 
-          <ScrollReveal animation="reveal-scale">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+          >
             <div className="hero-cta" style={{ justifyContent: 'center' }}>
               <Link to="/portfolio" className="btn btn-primary btn-lg hover-lift">
                 View Our Gallery →
@@ -113,7 +132,7 @@ export default function Home() {
                 Plan My Event
               </Link>
             </div>
-          </ScrollReveal>
+          </motion.div>
         </div>
 
         <div className="scroll-indicator">
@@ -147,14 +166,24 @@ export default function Home() {
       <section className="section" style={{ background: 'var(--blush-soft)', overflow: 'hidden' }}>
         <div className="container">
           
-          <ScrollReveal>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+          >
             <h2 className="mega-heading" style={{ textAlign: 'center', fontSize: 'clamp(3rem, 5vw, 4.5rem)', marginBottom: '60px', lineHeight: 1.1 }}>
-              <span className="text-reveal-mask"><span className="text-reveal-item delay-1">Where Every <span className="accent">Celebration</span></span></span><br />
-              <span className="text-reveal-mask"><span className="text-reveal-item delay-2">Becomes Part Of Our <span className="accent">Story</span></span></span>
+              <span>Where Every <span className="accent">Celebration</span></span><br />
+              <span>Becomes Part Of Our <span className="accent">Story</span></span>
             </h2>
-          </ScrollReveal>
+          </motion.div>
 
-          <ScrollReveal animation="stagger-children">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ staggerChildren: 0.2 }}
+          >
             <div className="stat-cards-wrapper">
               <div className="stat-card" ref={weddingsRef}>
                 <div className="stat-number">{weddingsCount.toLocaleString()}+</div>
@@ -173,7 +202,7 @@ export default function Home() {
                 <div className="stat-label">Years of Excellence</div>
               </div>
             </div>
-          </ScrollReveal>
+          </motion.div>
         </div>
       </section>
 
@@ -181,13 +210,23 @@ export default function Home() {
       <section className="section" style={{ background: 'var(--cream)' }}>
         <div className="container">
           <div className="grid-2" style={{ alignItems: 'center' }}>
-            <ScrollReveal animation="reveal-left">
+            <motion.div
+              initial={{ opacity: 0, x: -50, rotate: -2 }}
+              whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, type: 'spring' }}
+            >
               <div className="img-zoom hover-tilt" style={{ borderRadius: '24px', boxShadow: 'var(--shadow-dramatic)' }}>
                 <img src="/images/portfolio/royal-mandap.png" alt="Crafting Moments" style={{ width: '100%', height: '600px', objectFit: 'cover' }} />
               </div>
-            </ScrollReveal>
+            </motion.div>
             <div style={{ padding: '40px' }}>
-              <ScrollReveal animation="reveal-right">
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, type: 'spring' }}
+              >
                 <span className="label">About Us</span>
                 <h2 className="mega-heading" style={{ fontSize: 'clamp(3rem, 5vw, 4.5rem)', textAlign: 'left', marginBottom: '24px', lineHeight: 1 }}>
                   <span className="text-reveal-mask"><span className="text-reveal-item delay-1">Crafting</span></span><br />
@@ -203,7 +242,7 @@ export default function Home() {
                 <Link to="/about" className="btn btn-primary hover-lift">
                   Learn More →
                 </Link>
-              </ScrollReveal>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -215,9 +254,12 @@ export default function Home() {
         <div className="container-wide">
           <div className="mismatched-grid">
             {displayPortfolio.map((project, index) => (
-              <ScrollReveal 
+              <motion.div 
                 key={project.id || index} 
-                animation="reveal-scale" 
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: (index % 3) * 0.1 }}
                 className={`card-size-${index % 5}`} 
                 style={{ height: '100%' }}
               >
@@ -232,7 +274,7 @@ export default function Home() {
                     <p>{project.description}</p>
                   </div>
                 </div>
-              </ScrollReveal>
+              </motion.div>
             ))}
           </div>
           <div style={{ textAlign: 'center', marginTop: 'var(--space-xl)' }}>
@@ -247,9 +289,14 @@ export default function Home() {
       <section className="section" id="testimonials" style={{ background: 'var(--cream)' }}>
         <SectionHeading label="Client Words" title="Built on Trust" />
         <div className="container-narrow">
-          <ScrollReveal>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <TestimonialCarousel testimonials={testimonials} />
-          </ScrollReveal>
+          </motion.div>
         </div>
       </section>
       
@@ -257,9 +304,14 @@ export default function Home() {
       <section className="section" id="inquiry-section" style={{ background: 'var(--blush-soft)' }}>
         <SectionHeading label="Start Your Story" title="Inquire for 2026/2027" />
         <div className="container-narrow">
-          <ScrollReveal>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <InquiryForm />
-          </ScrollReveal>
+          </motion.div>
         </div>
       </section>
       

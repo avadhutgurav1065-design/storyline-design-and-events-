@@ -13,6 +13,8 @@ import About from './pages/About';
 import Team from './pages/Team';
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 
 import './index.css';
 import './styles/animations.css';
@@ -33,7 +35,7 @@ function Layout({ children }) {
 
   return (
     <>
-      <Navbar />
+      {!isAdmin && <Navbar />}
       <main>{children}</main>
       {!isAdmin && <Footer />}
     </>
@@ -56,7 +58,12 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/team" element={<Team />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin/*" element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          } />
         </Routes>
       </Layout>
     </Router>

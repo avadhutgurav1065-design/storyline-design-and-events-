@@ -106,4 +106,22 @@ public class ContentService {
     public void deleteTeamMember(Long id) {
         teamRepo.deleteById(id);
     }
+
+    // --- Admin CRUD for Services ---
+    public ServiceOffering saveServiceOffering(ServiceOffering service) {
+        return serviceRepo.save(service);
+    }
+
+    public void deleteServiceOffering(Long id) {
+        serviceRepo.deleteById(id);
+    }
+
+    // --- Admin CRUD for Packages ---
+    public EventPackage saveEventPackage(EventPackage eventPackage) {
+        return packageRepo.save(eventPackage);
+    }
+
+    public void deleteEventPackage(Long id) {
+        packageRepo.deleteById(id);
+    }
 }

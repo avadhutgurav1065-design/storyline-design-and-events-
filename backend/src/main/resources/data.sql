@@ -68,3 +68,10 @@ INSERT INTO event_packages (id, name, tier, scope, price_range, category, featur
 (5, 'Premium', 'PREMIUM', 'Conference/launch with custom staging, LED, branded environment', '₹7 – 20 Lakh', 'CORPORATE', 'Custom stage fabrication,LED screen integration,Full AV production,Branded environments,Sponsor deliverables,Registration and accreditation,Photography coverage,Crew and volunteer management', true, 5),
 (6, 'Flagship', 'FLAGSHIP', 'Multi-day summit or 500+ pax build, full rigging & production', '₹20 Lakh +', 'CORPORATE', 'All Premium features included,Multi-day stage builds,Full trussing and rigging,Power and generator management,Multiple breakout rooms,Live streaming capability,Dedicated command centre,Security and safety management,Post-event reporting and analysis', false, 6)
 ON CONFLICT (id) DO NOTHING;
+
+-- Sync sequences for all tables using IDENTITY so that new inserts do not clash with hardcoded IDs
+SELECT setval(pg_get_serial_sequence('service_offerings', 'id'), coalesce(max(id), 1), true) FROM service_offerings;
+SELECT setval(pg_get_serial_sequence('portfolio', 'id'), coalesce(max(id), 1), true) FROM portfolio;
+SELECT setval(pg_get_serial_sequence('testimonials', 'id'), coalesce(max(id), 1), true) FROM testimonials;
+SELECT setval(pg_get_serial_sequence('team_members', 'id'), coalesce(max(id), 1), true) FROM team_members;
+SELECT setval(pg_get_serial_sequence('event_packages', 'id'), coalesce(max(id), 1), true) FROM event_packages;

@@ -111,4 +111,26 @@ public class ContentController {
         contentService.deleteTeamMember(id);
         return ResponseEntity.ok(ApiResponse.success("Team member deleted"));
     }
+
+    @PostMapping("/admin/services")
+    public ResponseEntity<ApiResponse<ServiceOffering>> saveServiceOffering(@RequestBody ServiceOffering service) {
+        return ResponseEntity.ok(ApiResponse.success("Service saved", contentService.saveServiceOffering(service)));
+    }
+
+    @DeleteMapping("/admin/services/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteServiceOffering(@PathVariable Long id) {
+        contentService.deleteServiceOffering(id);
+        return ResponseEntity.ok(ApiResponse.success("Service deleted"));
+    }
+
+    @PostMapping("/admin/packages")
+    public ResponseEntity<ApiResponse<EventPackage>> saveEventPackage(@RequestBody EventPackage eventPackage) {
+        return ResponseEntity.ok(ApiResponse.success("Package saved", contentService.saveEventPackage(eventPackage)));
+    }
+
+    @DeleteMapping("/admin/packages/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteEventPackage(@PathVariable Long id) {
+        contentService.deleteEventPackage(id);
+        return ResponseEntity.ok(ApiResponse.success("Package deleted"));
+    }
 }

@@ -1,5 +1,5 @@
-﻿import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 
 const teamMembers = [
   {
@@ -57,11 +57,103 @@ const teamMembers = [
     initials: 'AG'
   }
 ];
+function TiltCard({ member, isSelected, onClick, onClose }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useTransform(y, [-0.5, 0.5], [15, -15]);
+  const rotateY = useTransform(x, [-0.5, 0.5], [-15, 15]);
+
+  function handleMouseMove(event) {
+    if (isSelected) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    
+    const xPct = (mouseX / width) - 0.5;
+    const yPct = (mouseY / height) - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  }
+
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
+  }
+
+  return (
+    <motion.div 
+      layout
+      layoutId={`card-container-${member.id}`}
+      className={`team-card ${isSelected ? 'expanded' : ''}`}
+      onClick={!isSelected ? onClick : undefined}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ 
+        rotateX: isSelected ? 0 : rotateX, 
+        rotateY: isSelected ? 0 : rotateY, 
+        transformStyle: "preserve-3d", 
+        perspective: 1200 
+      }}
+      whileHover={!isSelected ? { scale: 1.05, zIndex: 10, boxShadow: "0 30px 60px rgba(0,0,0,0.4)" } : {}}
+      whileTap={!isSelected ? { scale: 0.98 } : {}}
+      transition={{ layout: { type: "spring", stiffness: 300, damping: 30 } }}
+    >
+      <div className="team-card-inner">
+        <motion.div layout className="team-card-image-wrapper">
+          <motion.img 
+            layout
+            layoutId={`card-image-${member.id}`}
+            src={member.image}
+            alt={member.name}
+            className="team-card-photo"
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+          <AnimatePresence>
+            {!isSelected && (
+              <motion.div 
+                className="team-card-overlay"
+                layoutId={`card-overlay-${member.id}`}
+                style={{ transform: "translateZ(50px)" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <motion.h3 layoutId={`card-name-${member.id}`} style={{ transform: "translateZ(80px)" }}>{member.name}</motion.h3>
+                <motion.p layoutId={`card-title-${member.id}`} style={{ transform: "translateZ(60px)" }}>{member.title}</motion.p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+
+        {isSelected && (
+          <motion.div 
+            className="team-expanded-details"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+          >
+            <button className="team-close-btn" onClick={(e) => { e.stopPropagation(); onClose(); }}>Ã—</button>
+            <motion.span className="team-modal-index">Plate {member.id}</motion.span>
+            <motion.h2 layoutId={`card-name-${member.id}`} className="team-modal-name">{member.name}</motion.h2>
+            <motion.div layoutId={`card-title-${member.id}`} className="team-modal-title">{member.title}</motion.div>
+            <p className="team-modal-bio">{member.bio}</p>
+            <div className="team-modal-tags">
+              {member.tags.map(tag => <span key={tag} className="team-tag">{tag}</span>)}
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Team() {
   const [selectedId, setSelectedId] = useState(null);
-
-  const selectedMember = teamMembers.find(m => m.id === selectedId);
 
   return (
     <div className="team-app-page">
@@ -73,107 +165,19 @@ export default function Team() {
       </header>
 
       {/* The Grid */}
-      <div className="team-grid">
-        {teamMembers.map((member) => (
-          <motion.div 
-            key={member.id}
-            layoutId={`card-container-${member.id}`}
-            className="team-card"
-            onClick={() => setSelectedId(member.id)}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <motion.img 
-              layoutId={`card-image-${member.id}`}
-              src={member.image}
-              alt={member.name}
-              className="team-card-photo"
-              onError={(e) => { e.target.style.display = 'none'; }}
+      <motion.div layout className="team-grid">
+        <AnimatePresence>
+          {teamMembers.map((member) => (
+            <TiltCard 
+              key={member.id} 
+              member={member}
+              isSelected={selectedId === member.id}
+              onClick={() => setSelectedId(member.id)} 
+              onClose={() => setSelectedId(null)}
             />
-            <motion.div 
-              className="team-card-overlay"
-              layoutId={`card-overlay-${member.id}`}
-            >
-              <motion.h3 layoutId={`card-name-${member.id}`}>{member.name}</motion.h3>
-              <motion.p layoutId={`card-title-${member.id}`}>{member.title}</motion.p>
-            </motion.div>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* The Expanded Modal */}
-      <AnimatePresence>
-        {selectedId && (
-          <motion.div 
-            className="team-modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedId(null)}
-          >
-            <motion.div 
-              layoutId={`card-container-${selectedId}`}
-              className="team-modal-content"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button className="team-modal-close" onClick={() => setSelectedId(null)}>Ã—</button>
-              
-              <motion.img 
-                layoutId={`card-image-${selectedId}`}
-                src={selectedMember.image}
-                alt={selectedMember.name}
-                className="team-modal-photo"
-                onError={(e) => { e.target.style.display = 'none'; }}
-              />
-
-              <div className="team-modal-details">
-                <motion.span 
-                  initial={{ opacity: 0, y: 20 }} 
-                  animate={{ opacity: 1, y: 0 }} 
-                  transition={{ delay: 0.2 }}
-                  className="team-modal-index"
-                >
-                  Plate {selectedMember.id}
-                </motion.span>
-                
-                <motion.h2 
-                  layoutId={`card-name-${selectedId}`}
-                  className="team-modal-name"
-                >
-                  {selectedMember.name}
-                </motion.h2>
-                
-                <motion.div 
-                  layoutId={`card-title-${selectedId}`}
-                  className="team-modal-title"
-                >
-                  {selectedMember.title}
-                </motion.div>
-                
-                <motion.p 
-                  initial={{ opacity: 0, y: 20 }} 
-                  animate={{ opacity: 1, y: 0 }} 
-                  transition={{ delay: 0.3 }}
-                  className="team-modal-bio"
-                >
-                  {selectedMember.bio}
-                </motion.p>
-                
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }} 
-                  animate={{ opacity: 1, y: 0 }} 
-                  transition={{ delay: 0.4 }}
-                  className="team-modal-tags"
-                >
-                  {selectedMember.tags.map(tag => (
-                    <span key={tag} className="team-tag">{tag}</span>
-                  ))}
-                </motion.div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

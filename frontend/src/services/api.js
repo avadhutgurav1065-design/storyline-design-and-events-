@@ -9,6 +9,35 @@ const api = axios.create({
   },
 });
 
+// Request interceptor to add JWT token
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+// ---- Auth API ----
+export const login = async (credentials) => {
+  const response = await api.post('/auth/login', credentials);
+  return response.data;
+};
+
+// ---- File Upload API ----
+export const uploadFile = async (file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  const response = await api.post('/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
+};
+
 // ---- Public API ----
 
 export const getServices = async (category = null) => {
@@ -89,6 +118,36 @@ export const saveTestimonial = async (data) => {
 
 export const deleteTestimonialItem = async (id) => {
   const response = await api.delete(`/admin/testimonials/${id}`);
+  return response.data;
+};
+
+export const saveTeamMember = async (data) => {
+  const response = await api.post('/admin/team', data);
+  return response.data;
+};
+
+export const deleteTeamMember = async (id) => {
+  const response = await api.delete(`/admin/team/${id}`);
+  return response.data;
+};
+
+export const saveService = async (data) => {
+  const response = await api.post('/admin/services', data);
+  return response.data;
+};
+
+export const deleteService = async (id) => {
+  const response = await api.delete(`/admin/services/${id}`);
+  return response.data;
+};
+
+export const savePackage = async (data) => {
+  const response = await api.post('/admin/packages', data);
+  return response.data;
+};
+
+export const deletePackage = async (id) => {
+  const response = await api.delete(`/admin/packages/${id}`);
   return response.data;
 };
 
