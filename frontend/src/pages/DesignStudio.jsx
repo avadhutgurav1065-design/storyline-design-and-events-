@@ -181,11 +181,7 @@ export default function DesignStudio() {
               <ScrollReveal animation="reveal-scale">
                 <div className="mobile-reel-mockup">
                   <div className="mobile-screen">
-                    <div className="video-placeholder">
-                      {/* Video element will go here, currently a stylized placeholder */}
-                      <span className="play-icon">▶</span>
-                      <p>LIVE REEL FOOTAGE</p>
-                    </div>
+                    <video autoPlay loop muted playsInline style={{ width: "100%", height: "100%", objectFit: "cover" }}><source src="/videos/studio-reel.mp4" type="video/mp4" /></video>
                   </div>
                   <div className="neon-glow"></div>
                 </div>
@@ -284,3 +280,7 @@ export default function DesignStudio() {
     </div>
   );
 }
+
+
+
+
