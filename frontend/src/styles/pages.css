@@ -304,8 +304,8 @@
 /* Section 4: Blueprint Split */
 .blueprint-split { display: grid; grid-template-columns: 1fr 1.5fr 1fr; min-height: 60vh; }
 .blueprint-image { position: relative; background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: var(--space-md); }
-.left-render { background: var(--blush-soft); }
-.right-reality { background: #e8e6e1; }
+.left-render { background: url('/images/studio/3d-render.jpg') no-repeat center center; background-size: cover; }
+.right-reality { background: url('/images/studio/physical-build.jpg') no-repeat center center; background-size: cover; }
 .blueprint-image .label { background: var(--rose-muted); color: var(--text-dark); padding: 8px 16px; font-family: monospace; letter-spacing: 0.1em; font-size: 0.8rem; border-radius: 4px; text-transform: uppercase; }
 .blueprint-content { padding: var(--space-3xl); display: flex; flex-direction: column; justify-content: center; text-align: center; background: var(--white); z-index: 1; box-shadow: 0 0 40px rgba(0,0,0,0.05); }
 .blueprint-content p { font-size: 1.15rem; color: var(--text-muted); line-height: 1.8; margin-top: var(--space-lg); }
@@ -794,3 +794,4 @@
     box-sizing: border-box !important;
   }
 }
+
