@@ -83,9 +83,9 @@ export default function Home() {
             loop 
             muted 
             playsInline 
-            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4 }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 1 }}
           >
-            <source src="/videos/hero-video.mp4" type="video/mp4" />
+            <source src="/videos/hero-video.webm" type="video/webm" />
           </video>
         </div>
         
@@ -270,4 +270,7 @@ export default function Home() {
     </div>
   );
 }
+
+
+
 
