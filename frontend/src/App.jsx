@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Loader from './components/Loader';
 import LiveEffects from './components/LiveEffects';
+import SmoothScroll from './components/SmoothScroll';
 import Home from './pages/Home';
 import Weddings from './pages/Weddings';
 import Corporate from './pages/Corporate';
@@ -45,27 +46,29 @@ function Layout({ children }) {
 function App() {
   return (
     <Router>
-      <Loader />
-      <LiveEffects />
-      <ScrollToTop />
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/weddings" element={<Weddings />} />
-          <Route path="/corporate" element={<Corporate />} />
-          <Route path="/design-studio" element={<DesignStudio />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/admin/login" element={<Login />} />
-          <Route path="/admin/*" element={
-            <ProtectedRoute>
-              <Admin />
-            </ProtectedRoute>
-          } />
-        </Routes>
-      </Layout>
+      <SmoothScroll>
+        <Loader />
+        <LiveEffects />
+        <ScrollToTop />
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/weddings" element={<Weddings />} />
+            <Route path="/corporate" element={<Corporate />} />
+            <Route path="/design-studio" element={<DesignStudio />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/admin/login" element={<Login />} />
+            <Route path="/admin/*" element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            } />
+          </Routes>
+        </Layout>
+      </SmoothScroll>
     </Router>
   );
 }

@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 import SectionHeading from '../components/SectionHeading';
 import InquiryForm from '../components/InquiryForm';
+import MagneticButton from '../components/MagneticButton';
 import { FaConciergeBell, FaPaintBrush, FaHardHat } from 'react-icons/fa';
 
 // Custom Hook for Animated Number Counter
@@ -41,6 +43,11 @@ function useCountUp(end, duration = 2500) {
 }
 
 export default function Weddings() {
+  const { scrollY } = useScroll();
+  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
+  const heroY = useTransform(scrollY, [0, 500], [0, 150]);
+  const bgY = useTransform(scrollY, [0, 500], [0, 50]);
+
   const { count: trust01, countRef: ref01 } = useCountUp(1, 1500);
   const { count: trust02, countRef: ref02 } = useCountUp(24, 2000);
   const { count: trust03, countRef: ref03 } = useCountUp(100, 2500);
@@ -107,39 +114,47 @@ export default function Weddings() {
     <div>
       {/* ===== SECTION 1: THE HERO (THE HOOK) ===== */}
       <section className="cinematic-hero pastel-hero" id="weddings-hero">
-        <div className="video-background-wrapper">
+        <motion.div className="video-background-wrapper" style={{ y: bgY }}>
           <div className="video-overlay" style={{ background: 'transparent' }}></div>
           <div className="background-video-placeholder" style={{ background: 'radial-gradient(circle at top right, var(--rose-muted) 0%, transparent 50%), radial-gradient(circle at bottom left, var(--lilac-muted) 0%, transparent 50%)', opacity: 0.8 }}></div>
-        </div>
+        </motion.div>
 
-        <div className="content container">
-          <ScrollReveal>
-            <h1 className="mega-heading" style={{ marginBottom: '20px', color: 'var(--text-dark)' }}>
-              Emotion.<br />
-              Ceremony.<br />
-              <span className="accent">Flawless Execution.</span>
-            </h1>
-          </ScrollReveal>
+        <motion.div className="content container" style={{ y: heroY, opacity: heroOpacity }}>
+          <motion.h1 
+            className="mega-heading" 
+            style={{ marginBottom: '10px', color: 'var(--text-dark)', fontSize: 'clamp(3rem, 7vw, 6rem)' }}
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+            }}
+          >
+            <motion.span style={{ display: 'inline-block' }} variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>Emotion.</motion.span><br />
+            <motion.span style={{ display: 'inline-block' }} variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>Ceremony.</motion.span><br />
+            <motion.span className="accent" style={{ display: 'inline-block' }} variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>Flawless Execution.</motion.span>
+          </motion.h1>
           
           <ScrollReveal animation="reveal-scale">
-            <p style={{ fontSize: '1.2rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '20px', color: 'var(--rose-deeper)' }}>
+            <p style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '15px', color: 'var(--rose-deeper)' }}>
               Premium Wedding Styling & Production | Pune
             </p>
           </ScrollReveal>
 
           <ScrollReveal animation="reveal-scale">
-            <div className="gold-line-center" style={{ marginBottom: '20px', background: 'var(--rose-deeper)' }}></div>
-            <p className="hero-body-text" style={{ maxWidth: '700px', margin: '0 auto var(--space-xl)', fontSize: '1.2rem', lineHeight: '1.6', color: 'var(--text-dark)' }}>
+            <div className="gold-line-center" style={{ marginBottom: '15px', background: 'var(--rose-deeper)' }}></div>
+            <p className="hero-body-text" style={{ maxWidth: '700px', margin: '0 auto var(--space-lg)', fontSize: '1.1rem', lineHeight: '1.5', color: 'var(--text-dark)' }}>
               We do not just decorate venues. We architect experiences. From heavy structural rigging to the most intimate traditional rituals, we control the chaos so you can live the story.
             </p>
-            <Link to="/contact" className="btn btn-primary btn-lg hover-lift">
+            <MagneticButton as="link" to="/contact" className="btn btn-primary btn-lg">
               Request a Consultation
-            </Link>
+            </MagneticButton>
           </ScrollReveal>
-        </div>
-        <div className="scroll-indicator" style={{ color: 'var(--text-dark)' }}>
+        </motion.div>
+        
+        <motion.div className="scroll-indicator" style={{ color: 'var(--text-dark)', opacity: heroOpacity }}>
           <div className="scroll-indicator-mouse" style={{ borderColor: 'var(--text-dark)' }}></div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ===== SECTION 2: THE SERVICE MATRIX (DYNAMIC ENGINE) ===== */}
@@ -171,22 +186,31 @@ export default function Weddings() {
 
           {/* Dynamic Content Panel */}
           <div className="dynamic-content-panel">
-            <div className="content-inner keyframe-fade-in" key={activeEngine}>
-              <div className="panel-header">
-                <h2>{engineData[activeEngine].title}</h2>
-                <p className="panel-desc">{engineData[activeEngine].description}</p>
-                <div className="gold-line-left"></div>
-              </div>
-              
-              <div className="panel-grid">
-                {engineData[activeEngine].details.map((detail, idx) => (
-                  <div key={idx} className="panel-detail-item">
-                    <h4>{detail.label}</h4>
-                    <p>{detail.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div 
+                className="content-inner" 
+                key={activeEngine}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className="panel-header">
+                  <h2>{engineData[activeEngine].title}</h2>
+                  <p className="panel-desc">{engineData[activeEngine].description}</p>
+                  <div className="gold-line-left"></div>
+                </div>
+                
+                <div className="panel-grid">
+                  {engineData[activeEngine].details.map((detail, idx) => (
+                    <div key={idx} className="panel-detail-item">
+                      <h4>{detail.label}</h4>
+                      <p>{detail.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
         </div>
