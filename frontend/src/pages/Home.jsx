@@ -5,6 +5,9 @@ import { motion } from 'framer-motion';
 import SectionHeading from '../components/SectionHeading';
 import TestimonialCarousel from '../components/TestimonialCarousel';
 import InquiryForm from '../components/InquiryForm';
+import ParallaxImage from '../components/ParallaxImage';
+import MaskedText from '../components/MaskedText';
+import DistortedImage from '../components/DistortedImage';
 import { getFeaturedPortfolio, getTestimonials } from '../services/api';
 
 // Custom Hook for Animated Number Counter
@@ -97,15 +100,9 @@ export default function Home() {
             transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
           >
             <h1 className="mega-heading" style={{ textAlign: 'center', marginBottom: '20px', lineHeight: 1 }}>
-              <motion.span 
-                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-                className="text-reveal-mask" style={{ display: 'inline-block' }}>Transform Your</motion.span><br />
-              <motion.span 
-                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
-                className="text-reveal-mask" style={{ display: 'inline-block' }}>Dream Event</motion.span><br />
-              <motion.span 
-                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}
-                className="text-reveal-mask accent" style={{ display: 'inline-block' }}>Into Reality</motion.span>
+              <MaskedText text="Transform Your" delay={0.4} /><br />
+              <MaskedText text="Dream Event" delay={0.6} /><br />
+              <MaskedText text="Into Reality" delay={0.8} className="accent" />
             </h1>
           </motion.div>
           
@@ -173,8 +170,8 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="mega-heading" style={{ textAlign: 'center', fontSize: 'clamp(3rem, 5vw, 4.5rem)', marginBottom: '60px', lineHeight: 1.1 }}>
-              <span>Where Every <span className="accent">Celebration</span></span><br />
-              <span>Becomes Part Of Our <span className="accent">Story</span></span>
+              <MaskedText text="Where Every " delay={0.2} /><span className="accent"><MaskedText text="Celebration" delay={0.3} /></span><br />
+              <MaskedText text="Becomes Part Of Our " delay={0.4} /><span className="accent"><MaskedText text="Story" delay={0.5} /></span>
             </h2>
           </motion.div>
 
@@ -216,8 +213,8 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, type: 'spring' }}
             >
-              <div className="img-zoom hover-tilt" style={{ borderRadius: '24px', boxShadow: 'var(--shadow-dramatic)' }}>
-                <img src="/images/portfolio/royal-mandap.png" alt="Crafting Moments" style={{ width: '100%', height: '600px', objectFit: 'cover' }} />
+              <div className="img-zoom hover-tilt" style={{ borderRadius: '24px', boxShadow: 'var(--shadow-dramatic)', overflow: 'hidden', height: '600px' }}>
+                <DistortedImage src="/images/portfolio/royal-mandap.png" alt="Crafting Moments" />
               </div>
             </motion.div>
             <div style={{ padding: '40px' }}>
@@ -229,9 +226,9 @@ export default function Home() {
               >
                 <span className="label">About Us</span>
                 <h2 className="mega-heading" style={{ fontSize: 'clamp(3rem, 5vw, 4.5rem)', textAlign: 'left', marginBottom: '24px', lineHeight: 1 }}>
-                  <span className="text-reveal-mask"><span className="text-reveal-item delay-1">Crafting</span></span><br />
-                  <span className="text-reveal-mask"><span className="text-reveal-item delay-2 accent">Unforgettable</span></span><br />
-                  <span className="text-reveal-mask"><span className="text-reveal-item delay-3">Moments</span></span>
+                  <MaskedText text="Crafting" delay={0.1} /><br />
+                  <MaskedText text="Unforgettable" delay={0.2} className="accent" /><br />
+                  <MaskedText text="Moments" delay={0.3} />
                 </h2>
                 <p style={{ fontSize: '1.1rem', marginBottom: '16px', color: 'var(--text-dark)' }}>
                   At Storyline, we believe in creating unforgettable moments through exceptional decor and meticulous planning. Since our inception in 2008, we have crafted bespoke wedding and event experiences that resonate with emotion, elegance, and impact.
@@ -264,11 +261,11 @@ export default function Home() {
                 style={{ height: '100%' }}
               >
                 <div className="portfolio-card hover-tilt" style={{ height: '100%' }}>
-                  <img
+                  <ParallaxImage 
                     src={project.imageUrl?.replace('.jpg', '.png') || `/images/portfolio/grand-ceiling.png`}
                     alt={project.title}
                   />
-                  <div className="portfolio-card-overlay">
+                  <div className="portfolio-card-overlay" style={{ zIndex: 1 }}>
                     <span className="portfolio-card-category">{project.category}</span>
                     <h3>{project.title}</h3>
                     <p>{project.description}</p>

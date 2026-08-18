@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { submitInquiry } from '../services/api';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export default function InquiryForm({ defaultTab = 'WEDDING' }) {
-  const [activeTab, setActiveTab] = useState(defaultTab);
+export default function InquiryForm({ className = '' }) {
+  const [activeTab, setActiveTab] = useState('WEDDING');
   const [formData, setFormData] = useState({
+    enquiryType: 'WEDDING',
     name: '',
     email: '',
     phone: '',
     city: '',
-    enquiryType: defaultTab,
     eventDate: '',
     venue: '',
     guestCount: '',
@@ -65,220 +65,189 @@ export default function InquiryForm({ defaultTab = 'WEDDING' }) {
 
     setLoading(true);
     setError('');
+
     try {
-      await submitInquiry(formData);
-      setSubmitted(true);
+      const response = await fetch('http://localhost:8080/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({
+          enquiryType: activeTab,
+          name: '',
+          email: '',
+          phone: '',
+          city: '',
+          eventDate: '',
+          venue: '',
+          guestCount: '',
+          budgetRange: '',
+          referenceLink: '',
+          message: '',
+        });
+      } else {
+        const errorData = await response.text();
+        setError(`Failed to submit enquiry: ${errorData}`);
+      }
     } catch (err) {
-      console.error('Submission error:', err);
-      setError('Failed to submit inquiry. Please try again or contact us directly via email/WhatsApp.');
+      setError('A network error occurred. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
 
-  if (submitted) {
-    return (
-      <div className="inquiry-form" id="inquiry-form">
-        <div className="form-success">
-          <div style={{ fontSize: '3rem', marginBottom: '16px' }}>✓</div>
-          <h3>Thank you for your inquiry</h3>
-          <p>We have received your submission and will get back to you within 24 hours.</p>
-          <button
-            className="btn btn-outline"
-            style={{ marginTop: '24px' }}
-            onClick={() => {
-              setSubmitted(false);
-              setFormData({
-                name: '', email: '', phone: '', city: '',
-                enquiryType: activeTab, eventDate: '', venue: '',
-                guestCount: '', budgetRange: '', referenceLink: '', message: '',
-              });
-            }}
-          >
-            Submit Another Inquiry
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="inquiry-form" id="inquiry-form">
-      <div className="form-tabs">
-        {tabs.map((tab) => (
-          <button
-            key={tab.key}
-            className={`form-tab ${activeTab === tab.key ? 'active' : ''}`}
-            onClick={() => handleTabChange(tab.key)}
-            type="button"
-            id={`tab-${tab.key.toLowerCase()}`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-grid">
-          <div className="form-group">
-            <label htmlFor="inquiry-name">Full Name *</label>
-            <input
-              type="text"
-              id="inquiry-name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your full name"
-            />
-            {errors.name && <span className="form-error">{errors.name}</span>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="inquiry-email">Email *</label>
-            <input
-              type="email"
-              id="inquiry-email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="you@example.com"
-            />
-            {errors.email && <span className="form-error">{errors.email}</span>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="inquiry-phone">Phone *</label>
-            <input
-              type="tel"
-              id="inquiry-phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="+91 93071 95947"
-            />
-            {errors.phone && <span className="form-error">{errors.phone}</span>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="inquiry-city">City</label>
-            <input
-              type="text"
-              id="inquiry-city"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              placeholder="Pune"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="inquiry-date">Event Date(s)</label>
-            <input
-              type="text"
-              id="inquiry-date"
-              name="eventDate"
-              value={formData.eventDate}
-              onChange={handleChange}
-              placeholder="e.g. December 2026 or 15-17 Jan 2027"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="inquiry-venue">Venue (if known)</label>
-            <input
-              type="text"
-              id="inquiry-venue"
-              name="venue"
-              value={formData.venue}
-              onChange={handleChange}
-              placeholder="Venue name or location"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="inquiry-guests">Estimated Guest Count</label>
-            <select
-              id="inquiry-guests"
-              name="guestCount"
-              value={formData.guestCount}
-              onChange={handleChange}
+    <div className={`inquiry-form-container ${className}`}>
+      <div className="inquiry-form">
+        <div className="form-tabs">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              className={`form-tab ${activeTab === tab.key ? 'active' : ''}`}
+              onClick={() => handleTabChange(tab.key)}
             >
-              <option value="">Select guest count</option>
-              <option value="Up to 100">Up to 100</option>
-              <option value="100-300">100 – 300</option>
-              <option value="300-500">300 – 500</option>
-              <option value="500-1000">500 – 1,000</option>
-              <option value="1000+">1,000+</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="inquiry-budget">Budget Range</label>
-            <select
-              id="inquiry-budget"
-              name="budgetRange"
-              value={formData.budgetRange}
-              onChange={handleChange}
-            >
-              <option value="">Select budget range</option>
-              {(budgetOptions[activeTab] || []).map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group full-width">
-            <label htmlFor="inquiry-reference">Reference / Pinterest / Instagram Link</label>
-            <input
-              type="url"
-              id="inquiry-reference"
-              name="referenceLink"
-              value={formData.referenceLink}
-              onChange={handleChange}
-              placeholder="https://pinterest.com/... or Instagram post URL"
-            />
-          </div>
-
-          <div className="form-group full-width">
-            <label htmlFor="inquiry-message">Tell us about your event</label>
-            <textarea
-              id="inquiry-message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Describe your vision, key requirements, or any specific details you'd like us to know..."
-              rows="5"
-            ></textarea>
-          </div>
+              {tab.label}
+              {activeTab === tab.key && (
+                <motion.div
+                  layoutId="activeTabUnderline"
+                  style={{
+                    position: 'absolute',
+                    bottom: '-2px',
+                    left: 0,
+                    right: 0,
+                    height: '2px',
+                    background: 'var(--rose-deeper)'
+                  }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                />
+              )}
+            </button>
+          ))}
         </div>
 
-        <div className="form-submit">
-          {error && (
-            <div style={{
-              background: 'rgba(212, 97, 107, 0.1)',
-              border: '1px solid rgba(212, 97, 107, 0.3)',
-              color: 'var(--error)',
-              padding: '12px 16px',
-              borderRadius: '8px',
-              marginBottom: '16px',
-              fontSize: 'var(--fs-small)',
-              textAlign: 'center',
-            }}>
-              {error}
+        <form onSubmit={handleSubmit}>
+          <div className="form-grid cards-grid">
+            <div className="floating-input-card">
+              <label htmlFor="inquiry-name">Full Name *</label>
+              <input type="text" id="inquiry-name" name="name" value={formData.name} onChange={handleChange} placeholder="Your full name" />
+              {errors.name && <span className="form-error">{errors.name}</span>}
             </div>
+
+            <div className="floating-input-card">
+              <label htmlFor="inquiry-email">Email *</label>
+              <input type="email" id="inquiry-email" name="email" value={formData.email} onChange={handleChange} placeholder="you@example.com" />
+              {errors.email && <span className="form-error">{errors.email}</span>}
+            </div>
+
+            <div className="floating-input-card">
+              <label htmlFor="inquiry-phone">Phone *</label>
+              <input type="tel" id="inquiry-phone" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 93071 95947" />
+              {errors.phone && <span className="form-error">{errors.phone}</span>}
+            </div>
+
+            <div className="floating-input-card">
+              <label htmlFor="inquiry-city">City</label>
+              <input type="text" id="inquiry-city" name="city" value={formData.city} onChange={handleChange} placeholder="Event city" />
+            </div>
+
+            <div className="floating-input-card">
+              <label htmlFor="inquiry-date">Event Date</label>
+              <input type="date" id="inquiry-date" name="eventDate" value={formData.eventDate} onChange={handleChange} />
+            </div>
+
+            <div className="floating-input-card">
+              <label htmlFor="inquiry-venue">Venue / Location</label>
+              <input type="text" id="inquiry-venue" name="venue" value={formData.venue} onChange={handleChange} placeholder="Specific venue if known" />
+            </div>
+
+            <div className="floating-input-card">
+              <label htmlFor="inquiry-guests">Estimated Guest Count</label>
+              <select id="inquiry-guests" name="guestCount" value={formData.guestCount} onChange={handleChange}>
+                <option value="">Select guest count</option>
+                <option value="Up to 100">Up to 100</option>
+                <option value="100-300">100 – 300</option>
+                <option value="300-500">300 – 500</option>
+                <option value="500-1000">500 – 1,000</option>
+                <option value="1000+">1,000+</option>
+              </select>
+            </div>
+
+            <div className="floating-input-card">
+              <label htmlFor="inquiry-budget">Expected Budget</label>
+              <select id="inquiry-budget" name="budgetRange" value={formData.budgetRange} onChange={handleChange}>
+                <option value="">Select budget range</option>
+                {budgetOptions[activeTab]?.map((opt, i) => (
+                  <option key={i} value={opt}>{opt}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="floating-input-card full-width">
+              <label htmlFor="inquiry-link">Reference Link (Pinterest / Instagram)</label>
+              <input type="url" id="inquiry-link" name="referenceLink" value={formData.referenceLink} onChange={handleChange} placeholder="https://" />
+            </div>
+
+            <div className="floating-input-card full-width">
+              <label htmlFor="inquiry-message">Tell us about your vision</label>
+              <textarea id="inquiry-message" name="message" value={formData.message} onChange={handleChange} placeholder="Describe what you have in mind..." rows="4"></textarea>
+            </div>
+          </div>
+          
+          {error && <div className="form-error-main">{error}</div>}
+
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
+            <button type="submit" className="btn btn-solid submit-btn" disabled={loading} style={{ minWidth: '200px' }}>
+              {loading ? 'Submitting...' : 'Submit Inquiry'}
+            </button>
+          </div>
+        </form>
+
+        <AnimatePresence>
+          {submitted && (
+            <motion.div
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              style={{
+                position: 'fixed',
+                bottom: '40px',
+                right: '40px',
+                background: 'var(--white)',
+                boxShadow: 'var(--shadow-dramatic)',
+                borderRadius: 'var(--radius-xl)',
+                border: '1px solid rgba(164, 105, 127, 0.2)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                zIndex: 9999,
+                padding: '24px 32px',
+                maxWidth: '400px'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--rose-deeper)' }}></div>
+                <h3 style={{ color: 'var(--rose-deeper)', fontSize: '1.2rem', margin: 0 }}>Inquiry Received</h3>
+              </div>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-dark)', marginBottom: '20px', lineHeight: 1.5 }}>
+                Thank you for reaching out! We will be in touch shortly to discuss your vision.
+              </p>
+              <button 
+                type="button" 
+                className="btn btn-outline"
+                style={{ padding: '8px 16px', fontSize: '0.9rem' }}
+                onClick={() => setSubmitted(false)}
+              >
+                Close
+              </button>
+            </motion.div>
           )}
-          <button
-            type="submit"
-            className="btn btn-primary btn-lg"
-            disabled={loading}
-            id="submit-inquiry-btn"
-          >
-            {loading ? 'Submitting...' : 'Submit Inquiry'}
-          </button>
-        </div>
-      </form>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
-
-

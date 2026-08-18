@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getInquiries, updateInquiryStatus, deleteInquiry } from '../../services/api';
 import { FaTrash } from 'react-icons/fa';
 
 export default function AdminInquiries() {
   const [inquiries, setInquiries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
     fetchInquiries();
@@ -92,52 +93,74 @@ export default function AdminInquiries() {
                   <th>Type</th>
                   <th>Email</th>
                   <th>Phone</th>
-                  <th>Date</th>
+                  <th>Event Date</th>
+                  <th>Submitted</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {inquiries.map((inquiry) => (
-                  <tr key={inquiry.id}>
-                    <td style={{ fontWeight: 500, color: 'var(--ivory)' }}>{inquiry.name}</td>
-                    <td>
-                      <span className="label" style={{ fontSize: 'var(--fs-xs)' }}>
-                        {inquiry.enquiryType}
-                      </span>
-                    </td>
-                    <td>{inquiry.email}</td>
-                    <td>{inquiry.phone}</td>
-                    <td>{inquiry.createdAt ? new Date(inquiry.createdAt).toLocaleDateString() : '-'}</td>
-                    <td>
-                      <select
-                        value={inquiry.status}
-                        onChange={(e) => handleStatusUpdate(inquiry.id, e.target.value)}
-                        style={{
-                          background: 'var(--charcoal-mid)',
-                          border: '1px solid var(--charcoal-light)',
-                          color: 'var(--ivory)',
-                          padding: '4px 8px',
-                          borderRadius: '4px',
-                          fontSize: 'var(--fs-xs)',
-                        }}
-                      >
-                        <option value="NEW">New</option>
-                        <option value="CONTACTED">Contacted</option>
-                        <option value="IN_PROGRESS">In Progress</option>
-                        <option value="CLOSED">Closed</option>
-                      </select>
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => handleDelete(inquiry.id)}
-                        style={{ background: 'none', border: 'none', color: 'var(--error)', cursor: 'pointer', padding: '4px' }}
-                        title="Delete inquiry"
-                      >
-                        <FaTrash />
-                      </button>
-                    </td>
-                  </tr>
+                  <React.Fragment key={inquiry.id}>
+                    <tr 
+                      onClick={() => setExpandedId(expandedId === inquiry.id ? null : inquiry.id)}
+                      style={{ cursor: 'pointer', background: expandedId === inquiry.id ? 'var(--charcoal-light)' : 'transparent' }}
+                    >
+                      <td style={{ fontWeight: 500, color: 'var(--ivory)' }}>{inquiry.name}</td>
+                      <td>
+                        <span className="label" style={{ fontSize: 'var(--fs-xs)' }}>
+                          {inquiry.enquiryType}
+                        </span>
+                      </td>
+                      <td>{inquiry.email}</td>
+                      <td>{inquiry.phone}</td>
+                      <td>{inquiry.eventDate || '-'}</td>
+                      <td>{inquiry.createdAt ? new Date(inquiry.createdAt).toLocaleDateString() : '-'}</td>
+                      <td onClick={(e) => e.stopPropagation()}>
+                        <select
+                          value={inquiry.status}
+                          onChange={(e) => handleStatusUpdate(inquiry.id, e.target.value)}
+                          style={{
+                            background: 'var(--charcoal-mid)',
+                            border: '1px solid var(--charcoal-light)',
+                            color: 'var(--ivory)',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: 'var(--fs-xs)',
+                          }}
+                        >
+                          <option value="NEW">New</option>
+                          <option value="CONTACTED">Contacted</option>
+                          <option value="IN_PROGRESS">In Progress</option>
+                          <option value="CLOSED">Closed</option>
+                        </select>
+                      </td>
+                      <td onClick={(e) => e.stopPropagation()}>
+                        <button
+                          onClick={() => handleDelete(inquiry.id)}
+                          style={{ background: 'none', border: 'none', color: 'var(--error)', cursor: 'pointer', padding: '4px' }}
+                          title="Delete inquiry"
+                        >
+                          <FaTrash />
+                        </button>
+                      </td>
+                    </tr>
+                    {expandedId === inquiry.id && (
+                      <tr style={{ background: 'var(--charcoal-dark)' }}>
+                        <td colSpan="8" style={{ padding: '24px', borderBottom: '1px solid var(--charcoal-light)' }}>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                            <div><strong style={{color: 'var(--ivory)'}}>City:</strong> {inquiry.city || '-'}</div>
+                            <div><strong style={{color: 'var(--ivory)'}}>Event Date:</strong> {inquiry.eventDate || '-'}</div>
+                            <div><strong style={{color: 'var(--ivory)'}}>Venue:</strong> {inquiry.venue || '-'}</div>
+                            <div><strong style={{color: 'var(--ivory)'}}>Guests:</strong> {inquiry.guestCount || '-'}</div>
+                            <div><strong style={{color: 'var(--ivory)'}}>Budget:</strong> {inquiry.budgetRange || '-'}</div>
+                            <div><strong style={{color: 'var(--ivory)'}}>Reference:</strong> {inquiry.referenceLink ? <a href={inquiry.referenceLink} target="_blank" rel="noreferrer" style={{color: 'var(--rose)'}}>Link</a> : '-'}</div>
+                            <div style={{ gridColumn: '1 / -1' }}><strong style={{color: 'var(--ivory)'}}>Message:</strong> <p style={{marginTop: '8px', whiteSpace: 'pre-wrap', color: 'var(--text-muted)'}}>{inquiry.message || 'No message provided.'}</p></div>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
                 ))}
               </tbody>
             </table>
