@@ -19,11 +19,31 @@ export default function Navbar() {
 
   const navClass = `navbar ${scrollY > 50 || !isHome ? 'scrolled' : 'transparent'}`;
 
-  const links = [
+    const [servicesOpen, setServicesOpen] = useState(false);
+
+  const regularLinks = [
+    { to: '/', label: 'Home' },
+  ];
+
+  const serviceLinks = [
+    { to: '/weddings', label: 'Weddings' },
+    { to: '/corporate', label: 'Corporate' },
+    { to: '/design-studio', label: 'Studio' },
+    { to: '/hampers', label: 'Hampers' },
+  ];
+
+  const afterLinks = [
+    { to: '/portfolio', label: 'Portfolio' },
+    { to: '/about', label: 'About' },
+    { to: '/team', label: 'Team' },
+  ];
+
+  const allMobileLinks = [
     { to: '/', label: 'Home' },
     { to: '/weddings', label: 'Weddings' },
     { to: '/corporate', label: 'Corporate' },
     { to: '/design-studio', label: 'Studio' },
+    { to: '/hampers', label: 'Hampers' },
     { to: '/portfolio', label: 'Portfolio' },
     { to: '/about', label: 'About' },
     { to: '/team', label: 'Team' },
@@ -44,12 +64,43 @@ export default function Navbar() {
           </Link>
 
           <div className="navbar-links">
-            {links.map((link) => (
+            {regularLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) => isActive ? 'active' : ''}
-                end={link.to === '/'}
+              >
+                {link.label}
+              </NavLink>
+            ))}
+
+            <div 
+              className="nav-dropdown"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <span className="nav-dropdown-trigger">
+                Services <span className={`dropdown-arrow ${servicesOpen ? 'open' : ''}`}>&#9662;</span>
+              </span>
+              <div className={`nav-dropdown-menu ${servicesOpen ? 'visible' : ''}`}>
+                {serviceLinks.map((link) => (
+                  <NavLink
+                    key={link.to}
+                    to={link.to}
+                    className={({ isActive }) => isActive ? 'active' : ''}
+                    onClick={() => setServicesOpen(false)}
+                  >
+                    {link.label}
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+
+            {afterLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) => isActive ? 'active' : ''}
               >
                 {link.label}
               </NavLink>
@@ -74,7 +125,7 @@ export default function Navbar() {
       </nav>
 
       <div className={`mobile-menu ${mobileOpen ? 'open' : ''}`}>
-        {links.map((link) => (
+        {allMobileLinks.map((link) => (
           <NavLink
             key={link.to}
             to={link.to}

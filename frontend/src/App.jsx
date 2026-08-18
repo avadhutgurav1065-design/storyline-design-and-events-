@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Weddings from './pages/Weddings';
 import Corporate from './pages/Corporate';
 import DesignStudio from './pages/DesignStudio';
+import Hampers from './pages/Hampers';
 import Portfolio from './pages/Portfolio';
 import About from './pages/About';
 import Team from './pages/Team';
@@ -56,6 +57,7 @@ function App() {
             <Route path="/weddings" element={<Weddings />} />
             <Route path="/corporate" element={<Corporate />} />
             <Route path="/design-studio" element={<DesignStudio />} />
+              <Route path="/hampers" element={<Hampers />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/about" element={<About />} />
             <Route path="/team" element={<Team />} />
