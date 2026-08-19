@@ -111,11 +111,19 @@ export default function Corporate() {
   return (
     <div className="corporate-page">
       {/* ===== SECTION 1: THE HERO (THE HOOK) ===== */}
-      <section className="cinematic-hero pastel-hero" id="corporate-hero">
-        <div className="video-background-wrapper">
-          <div className="video-overlay" style={{ background: 'transparent' }}></div>
-          {/* Replace with time-lapse of stage build */}
-          <div className="background-video-placeholder" style={{ background: 'radial-gradient(circle at top left, var(--card-sage) 0%, transparent 60%), radial-gradient(circle at bottom right, var(--cream) 0%, transparent 60%)', opacity: 0.8 }}></div>
+      <section className="cinematic-hero pastel-hero" id="corporate-hero" style={{ background: 'var(--cream)', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+          {/* Aesthetic dark/light mix background glow */}
+          <div style={{ position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none', background: 'radial-gradient(circle at center, transparent 0%, var(--cream) 80%), radial-gradient(circle at 80% 20%, rgba(164, 105, 127, 0.4) 0%, transparent 70%), radial-gradient(circle at 20% 80%, rgba(117, 141, 113, 0.4) 0%, transparent 70%)' }}></div>
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 1, position: 'absolute', top: 0, left: 0, zIndex: 0 }}
+          >
+            <source src="/videos/corporate hero.webm" type="video/webm" />
+          </video>
         </div>
 
         <div className="content container">
