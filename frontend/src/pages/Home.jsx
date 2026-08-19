@@ -62,11 +62,11 @@ export default function Home() {
   }, []);
 
   const fallbackPortfolio = [
-    { id: 1, title: 'The Grand Ceiling', category: 'WEDDING', description: 'A breathtaking floral ceiling installation.', imageUrl: '/images/portfolio/grand-ceiling.png', isFeatured: true },
-    { id: 2, title: 'The Corporate Stage', category: 'CORPORATE', description: 'Precision staging for 500+ attendees.', imageUrl: '/images/portfolio/corporate-stage.png', isFeatured: true },
-    { id: 3, title: 'The Royal Mandap', category: 'WEDDING', description: 'A bespoke multi-tiered mandap combining traditional design.', imageUrl: '/images/portfolio/royal-mandap.png', isFeatured: true },
-    { id: 4, title: 'Leadership Summit', category: 'CORPORATE', description: 'Three-day corporate leadership summit.', imageUrl: '/images/portfolio/leadership-summit.png', isFeatured: true },
-    { id: 5, title: 'Enchanted Forest', category: 'WEDDING', description: 'An outdoor woodland theme with suspended greenery.', imageUrl: '/images/portfolio/grand-ceiling.png', isFeatured: true },
+    { id: 1, title: 'The Sunshine Mandap', category: 'WEDDING', description: 'A towering, custom-built yellow wooden mandap structure elegantly draped in white and yellow floral cascading garlands.', imageUrl: '/images/portfolio/275270396e14239b73a536bd95f3b39d.jpg', isFeatured: true },
+    { id: 2, title: 'Tech Partnership Summit', category: 'CORPORATE', description: 'A massive corporate partnership summit featuring a custom-built stage with ultra-wide LED screens.', imageUrl: '/images/portfolio/512314d3077a801ae45d506c9de6f114.jpg', isFeatured: true },
+    { id: 3, title: 'Rajasthani Sangeet Courtyard', category: 'WEDDING', description: 'An incredible Rajasthani-style outdoor courtyard setup for a vibrant Sangeet.', imageUrl: '/images/portfolio/709d4ce8f06310e107cf6ac6e7fe17c0.jpg', isFeatured: true },
+    { id: 4, title: 'Champions Charity Gala', category: 'CORPORATE', description: 'An elegant corporate dinner gala setup with deep purple ambient lighting and tropical centerpieces.', imageUrl: '/images/portfolio/7275c62519f387d8b04aa08cd435b1c8.jpg', isFeatured: true },
+    { id: 5, title: 'The Botanical Walkway', category: 'WEDDING', description: 'An immersive, fully floral arched walkway bursting with thousands of fresh orange, yellow, and peach roses.', imageUrl: '/images/portfolio/24b5efff1c8e03140bb67798dba5bceb.jpg', isFeatured: true },
   ];
 
   const displayPortfolio = portfolio.length ? portfolio : fallbackPortfolio;
@@ -214,7 +214,7 @@ export default function Home() {
               transition={{ duration: 0.8, type: 'spring' }}
             >
               <div className="img-zoom hover-tilt" style={{ borderRadius: '24px', boxShadow: 'var(--shadow-dramatic)', overflow: 'hidden', height: '600px' }}>
-                <DistortedImage src="/images/portfolio/royal-mandap.png" alt="Crafting Moments" />
+                <DistortedImage src="/images/portfolio/38fd259732be92bd9168151ed59dcf4e.jpg" alt="Crafting Moments" />
               </div>
             </motion.div>
             <div style={{ padding: '40px' }}>
@@ -262,7 +262,7 @@ export default function Home() {
               >
                 <div className="portfolio-card hover-tilt" style={{ height: '100%' }}>
                   <ParallaxImage 
-                    src={project.imageUrl?.replace('.jpg', '.png') || `/images/portfolio/grand-ceiling.png`}
+                    src={project.imageUrl || `/images/portfolio/0f51575b0db9a3efb67c33817a31212e.jpg`}
                     alt={project.title}
                   />
                   <div className="portfolio-card-overlay" style={{ zIndex: 1 }}>

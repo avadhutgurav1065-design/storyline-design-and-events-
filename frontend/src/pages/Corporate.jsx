@@ -92,17 +92,17 @@ export default function Corporate() {
 
   const caseStudies = [
     {
-      src: '/images/portfolio/leadership-summit.png',
+      src: '/images/portfolio/709d4ce8f06310e107cf6ac6e7fe17c0.jpg',
       tags: 'LED Mapping, Stage Fabrication, Registration Flow',
       title: '500-Pax Tech Summit'
     },
     {
-      src: '/images/portfolio/grand-ceiling.png',
+      src: '/images/portfolio/7275c62519f387d8b04aa08cd435b1c8.jpg',
       tags: 'Heavy Truss Rigging, 1000+ Seating Grid, VIP Security',
       title: 'Institutional Convocation'
     },
     {
-      src: '/images/portfolio/corporate-stage.png',
+      src: '/images/portfolio/78452b62c4e4df528f3239e95ace0ea8.jpg',
       tags: 'Kabuki Drop Reveal, Press Media Wall, Intelligent Lighting',
       title: 'Brand Product Launch'
     }

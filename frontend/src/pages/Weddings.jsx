@@ -60,11 +60,11 @@ export default function Weddings() {
   }, []);
 
   const galleryImages = [
-    { src: '/images/portfolio/royal-mandap.png', name: 'The Grand Royal Mandap', category: 'Mandap' },
-    { src: '/images/portfolio/grand-ceiling.png', name: 'Botanical Suspension', category: 'Floral' },
-    { src: '/images/portfolio/corporate-stage.png', name: 'Sangeet Stage Production', category: 'Technical' },
-    { src: '/images/portfolio/leadership-summit.png', name: 'Intimate Haldi Setup', category: 'Styling' },
-    { src: '/images/portfolio/grand-ceiling.png', name: 'Luxury Drapery', category: 'Styling' },
+    { src: '/images/portfolio/512314d3077a801ae45d506c9de6f114.jpg', name: 'The Grand Royal Mandap', category: 'Mandap' },
+    { src: '/images/portfolio/5286952977522794e7aaaade2cfe220b.jpg', name: 'Botanical Suspension', category: 'Floral' },
+    { src: '/images/portfolio/58003c63304370c1aa6195a216344cd9.jpg', name: 'Sangeet Stage Production', category: 'Technical' },
+    { src: '/images/portfolio/5935ecbe0930010e497bf5030d0b6215.jpg', name: 'Intimate Haldi Setup', category: 'Styling' },
+    { src: '/images/portfolio/6676522781156ee6547cf08f2b08304c.jpg', name: 'Luxury Drapery', category: 'Styling' },
   ];
 
   // Dynamic Engine Data
