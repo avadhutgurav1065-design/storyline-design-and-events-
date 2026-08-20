@@ -212,11 +212,11 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, type: 'spring' }}
             >
-              <div className="img-zoom hover-tilt" style={{ borderRadius: '24px', boxShadow: 'var(--shadow-dramatic)', overflow: 'hidden', height: '600px' }}>
+              <div className="img-zoom hover-tilt" style={{ borderRadius: '24px', boxShadow: 'var(--shadow-dramatic)', overflow: 'hidden', aspectRatio: '3/4', maxHeight: '70vh' }}>
                 <DistortedImage src="/images/portfolio/38fd259732be92bd9168151ed59dcf4e.jpg" alt="Crafting Moments" />
               </div>
             </motion.div>
-            <div style={{ padding: '40px' }}>
+            <div style={{ padding: 'var(--space-xl) var(--space-md)' }}>
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}

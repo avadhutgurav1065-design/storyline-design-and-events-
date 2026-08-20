@@ -744,7 +744,7 @@
   }
   
   /* Forms explicitly constrained */
-  .intake-form-container, .inquiry-form, .contact-hero-boutique { width: 100% !important; padding: 20px !important; box-sizing: border-box !important; }
+  .intake-form-container, .inquiry-form, 
   .c-input, .c-input-group, .form-control { width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
   .c-form-row { display: flex !important; flex-direction: column !important; width: 100% !important; }
   
@@ -759,7 +759,7 @@
   .floating-whatsapp-widget svg { width: 22px !important; height: 22px !important; }
   
   /* Add padding to body so user can scroll past widget */
-  body { padding-bottom: 80px !important; }
+  
   
   /* Fix About Section Text Cutting Off (Grid Fix) */
   .grid-2 { display: flex !important; flex-direction: column !important; width: 100% !important; }
@@ -813,10 +813,251 @@
   }
   
   /* 4. Strict text paddings so paragraphs don't clip */
-  .hero-body-text {
-    width: 100% !important;
-    padding: 0 15px !important;
-    box-sizing: border-box !important;
-  }
+  
 }
 
+
+@media (max-width: 768px) {
+  .portfolio-hero { padding-top: 130px !important; }
+  .editorial-title { font-size: clamp(2.2rem, 8vw, 3.5rem) !important; line-height: 1.1 !important; }
+  .slider-label { font-size: 0.55rem !important; padding: 4px 6px !important; letter-spacing: 0.05em !important; }
+  .label-left { left: 5px !important; top: 10px !important; }
+  .label-right { right: 5px !important; top: 10px !important; }
+}
+
+@media (max-width: 768px) {
+    /* Form Label Wrapping Fix */
+    .c-input-group label, .studio-form .form-group label {
+        font-size: 0.7rem !important;
+        letter-spacing: 0.02em !important;
+        white-space: normal !important;
+    }
+    
+    /* Ensure no huge horizontal padding */
+    .container, .container-narrow, .container-wide {
+        padding: 0 16px !important;
+    }
+    
+    /* Fix form squishing */
+    .intake-form-container, .inquiry-form, .contact-hero-boutique {
+        padding: 10px 0 !important;
+    }
+    
+    /* Give text breathing room to expand horizontally */
+    .hero-body-text, .panel-desc {
+        max-width: 100% !important;
+        margin-bottom: 24px !important;
+        padding: 0 !important;
+    }
+    
+    h1, h2, h3, h4, .mega-heading { 
+        line-height: 1.15 !important; 
+        padding-top: 4px; /* Prevent ascender clipping */
+    }
+}
+
+/* ============================================
+   FINAL MOBILE NORMALIZATION (OVERRIDE ALL)
+   ============================================ */
+@media (max-width: 768px) {
+    /* 1. Nuke massive side margins and paddings globally */
+    .leadership-content-half,
+    .founder-profile,
+    .service-row,
+    .blueprint-content,
+    .editorial-photo-comp,
+    .intake-form-container, 
+    .inquiry-form,
+    .service-card,
+    .stat-card {
+        padding: 16px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+    }
+
+    /* 2. Fix the flex alignment that squishes headers next to icons (Screenshot 1) */
+    .service-row-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 10px !important;
+    }
+    .service-row-header h2 {
+        text-align: center !important;
+    }
+
+    /* 3. Give forms breathing room at the bottom to prevent WhatsApp overlap (Screenshot 5) */
+    .concierge-form, .studio-form, .b2b-form {
+        padding-bottom: 70px !important; 
+    }
+    
+    /* 4. Ensure body doesn't have whitespace at bottom */
+    body, html {
+        padding-bottom: 0 !important;
+    }
+    
+    /* 5. Reduce gap on massive grids to save space */
+    .services-list {
+        gap: 24px !important;
+    }
+    .concierge-split-layout {
+        gap: 24px !important;
+    }
+    
+    /* 6. Form label wrapping */
+    .c-input-group label, .studio-form .form-group label {
+        font-size: 0.75rem !important;
+        letter-spacing: 0.05em !important;
+        white-space: normal !important;
+    }
+    
+    /* 7. Ensure text doesn't constrain */
+    .hero-body-text, .panel-desc, .founder-bio {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+/* ============================================
+   EXTRA FIXES FOR USER FEEDBACK (ALIGNED TO CENTER)
+   ============================================ */
+@media (max-width: 768px) {
+    /* Center all paragraph text inside services/operations */
+    .service-row p, .service-card p, .blueprint-content p, .founder-bio, .leadership-content-half p {
+        text-align: center !important;
+    }
+    
+    /* Ensure B2B Forms are not squished */
+    .b2b-form-wrapper, .studio-form-wrapper {
+        padding: 16px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .b2b-form-grid, .studio-form-grid {
+        gap: 16px !important;
+    }
+    
+    /* Fix the "WE BUILD THE STRUCTURE" Overlap */
+    .mega-heading {
+        line-height: 1.25 !important;
+    }
+    
+    /* Force inputs to take up full width of their container */
+    .c-input-group, .form-group {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    .c-input, .b2b-form input, .b2b-form select, .b2b-form textarea {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* ============================================
+   USER REQUESTED CENTERING & WIDTH OVERRIDES
+   ============================================ */
+@media (max-width: 768px) {
+    /* 1. Center all bullet points and lists (Screenshots 1 & 2) */
+    .service-row ul, .service-card ul, .case-logistics ul {
+        text-align: center !important;
+        list-style-position: inside !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+    }
+    .service-row li, .service-card li, .case-logistics li {
+        text-align: center !important;
+        margin-bottom: 12px !important;
+    }
+    
+    /* 2. Fix Royal Botanical Mandap squishing (Screenshot 3) */
+    .case-content-wrap {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+    .case-content-box {
+        width: 100% !important;
+        padding: 20px 16px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. Footer Logo Centering (Screenshot 4) */
+    .footer .navbar-logo {
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 12px !important;
+    }
+    .footer .navbar-logo > div {
+        text-align: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* 4. Contact Cards Centering (Screenshot 5) */
+    .access-card {
+        flex-direction: column !important;
+        text-align: center !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 24px 16px !important;
+    }
+    .card-content-wrap {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+    .card-content-wrap a, .card-content-wrap span {
+        text-align: center !important;
+    }
+}
+
+/* ============================================
+   FIX CORPORATE "ARSENAL" CARDS CENTERING (MOBILE)
+   ============================================ */
+@media (max-width: 768px) {
+    /* 1. Fix massive side margins on Arsenal cards */
+    .arsenal-card, .deep-dive-card {
+        padding: 24px 16px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. Center the Header Icon and Title */
+    .arsenal-header-row {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 12px !important;
+    }
+    .arsenal-header-row h3 {
+        text-align: center !important;
+    }
+
+    /* 3. Center the Paragraph and Bullet points */
+    .arsenal-intro-desc {
+        text-align: center !important;
+    }
+    .deep-dive-list {
+        text-align: center !important;
+        list-style-position: inside !important;
+        padding-left: 0 !important;
+    }
+    .deep-dive-list li {
+        text-align: center !important;
+        margin-bottom: 12px !important;
+    }
+}

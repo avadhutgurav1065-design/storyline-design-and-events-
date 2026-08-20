@@ -108,7 +108,7 @@ export default function DesignStudio() {
       }}>
         <div className="container-narrow">
           <ScrollReveal animation="reveal-scale">
-            <h1 className="mega-heading" style={{ fontSize: '4.5rem', marginBottom: 'var(--space-md)', color: 'var(--white)', textShadow: '0 2px 15px rgba(0,0,0,0.9)' }}>
+            <h1 className="mega-heading" style={{ fontSize: 'var(--fs-hero)', marginBottom: 'var(--space-md)', color: 'var(--white)', textShadow: '0 2px 15px rgba(0,0,0,0.9)' }}>
               The Design Studio.
             </h1>
             <div className="gold-line-center" style={{ marginBottom: '25px', width: '80px', height: '4px', background: 'var(--rose-deeper)' }}></div>
@@ -353,7 +353,7 @@ export default function DesignStudio() {
         <div className="container-narrow">
           <div className="text-center" style={{ marginBottom: 'var(--space-2xl)' }}>
             <ScrollReveal>
-              <h2 className="mega-heading" style={{ fontSize: '3rem', color: 'var(--text-dark)', marginBottom: 'var(--space-md)' }}>Commission the Studio.</h2>
+              <h2 className="mega-heading" style={{ fontSize: 'var(--fs-h1)', color: 'var(--text-dark)', marginBottom: 'var(--space-md)' }}>Commission the Studio.</h2>
               <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: '1.7' }}>
                 Whether you are planning a luxury wedding, a corporate gala, or you are an event agency needing structural design support--submit your brief below.
               </p>

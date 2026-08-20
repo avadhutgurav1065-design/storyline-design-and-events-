@@ -113,15 +113,15 @@ export default function About() {
             zIndex: 2
           }}></div>
 
-          <div style={{ position: 'relative', zIndex: 3, textAlign: 'center', padding: 'var(--space-2xl)', maxWidth: '1000px' }}>
+          <div style={{ position: 'relative', zIndex: 3, textAlign: 'center', padding: 'var(--space-md) var(--space-sm)', maxWidth: '1000px' }}>
             <ScrollReveal>
               <h1 className="mega-heading" style={{ color: 'var(--white)', textShadow: '0 4px 20px rgba(0,0,0,0.8)', marginBottom: 'var(--space-lg)' }}>
-                We Build the Structure.<br/><span className="accent" style={{ color: 'var(--rose-deeper)' }}>You Live the Story.</span>
+                We Build the Structure.<br/><span className="accent" style={{ color: '#ffffff', textShadow: '0 4px 15px rgba(0,0,0,0.8)' }}>You Live the Story.</span>
               </h1>
             </ScrollReveal>
             
             <ScrollReveal>
-              <p style={{ fontSize: '1.4rem', color: '#f0f0f0', lineHeight: '1.8', textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+              <p style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.4rem)', color: '#ffffff', lineHeight: '1.8', textShadow: '0 2px 10px rgba(0,0,0,0.9)' }}>
                 Storyline Design & Events is Pune's premier event styling and production house. Rebuilt from the ground up as a house of craftsmanship, we bridge the gap between heavy structural engineering and bespoke aesthetic design.
               </p>
             </ScrollReveal>

@@ -217,6 +217,12 @@ ul, ol { list-style: none; }
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-lg); }
 
 @media (max-width: 768px) {
+  :root {
+    --space-xl: 3rem;
+    --space-2xl: 4rem;
+    --space-3xl: 5rem;
+    --space-section: clamp(3rem, 8vw, 5rem);
+  }
   .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
   .container, .container-narrow, .container-wide { padding: 0 var(--space-sm); }
 }
@@ -394,4 +400,8 @@ ul, ol { list-style: none; }
 @keyframes scrollMouse {
   0% { transform: translate(-50%, 0); opacity: 1; }
   100% { transform: translate(-50%, 15px); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  h1, h2, h3, h4, .mega-heading { line-height: 1.1 !important; }
 }

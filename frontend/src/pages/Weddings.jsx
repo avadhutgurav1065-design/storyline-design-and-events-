@@ -183,7 +183,7 @@ export default function Weddings() {
                   <div className="service-row-header" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
                     <div style={{ fontSize: '3rem', color: 'var(--rose-deeper)' }}>{service.icon}</div>
                     <div>
-                      <h2 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'var(--font-display)' }}>{service.title}</h2>
+                      <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', lineHeight: 1.1, marginBottom: '0.5rem', fontFamily: 'var(--font-heading)', fontWeight: '800', letterSpacing: '-0.02em' }}>{service.title}</h2>
                       <span className="label" style={{ opacity: 0.8 }}>{service.domain}</span>
                     </div>
                   </div>
