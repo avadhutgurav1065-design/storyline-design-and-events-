@@ -1,0 +1,43 @@
+# Global Mobile Responsiveness Audit & Overhaul
+
+The Storyline website currently relies heavily on inline styles with large hardcoded values (e.g. `fontSize: '4.5rem'`, `width: '500px'`, large flex grid gaps) which look great on desktop but break layouts on mobile devices.
+
+This plan details how I will systematically scan and overhaul the entire website to make it fully responsive on all devices without overwriting the design language or causing over-zoom issues.
+
+## Proposed Changes
+
+I will execute a multi-phase refactoring of the codebase:
+
+### Phase 1: Global CSS Overhaul (`index.css` & `styles/components.css`)
+- **Global Typography Scale**: I will introduce fluid typography (using `clamp()`) or strict media queries for `.mega-heading` and `.hero-body-text` so they automatically scale down on screens under 768px.
+- **Horizontal Overflow Fixes**: I will strictly enforce `overflow-x: hidden` on the HTML/Body tags to prevent horizontal scrolling (the "overzoom" or "wobbly" effect on mobile).
+- **Responsive Padding/Margins**: I will scale down the global CSS variables (`--space-3xl`, `--space-2xl`) on mobile devices so sections don't have massive empty gaps on small screens.
+
+### Phase 2: Refactoring Inline Styles in JSX Files
+Many React components use inline styles that force desktop layouts. I will scan and modify the following files:
+
+- **`Home.jsx` & `About.jsx`**: 
+  - Remove hardcoded `height: '600px'` and `width: '1200px'` constraints.
+  - Convert side-by-side flex layouts to `flex-direction: column` for mobile.
+- **`DesignStudio.jsx`**:
+  - Replace hardcoded `fontSize: '4.5rem'` and `fontSize: '3rem'` with responsive CSS classes.
+  - Ensure the grid layouts (the creative arsenal and the new asymmetric collage) correctly break down into 1 or 2 columns on mobile.
+- **`Weddings.jsx` & `Corporate.jsx`**:
+  - Fix any absolute positioning or static widths that cause text to overflow the screen.
+  - Ensure the sequential service lists stack neatly.
+- **`Hampers.jsx` & `Team.jsx`**:
+  - Update grid columns to use `minmax(200px, 1fr)` or media queries so they wrap cleanly.
+
+### Phase 3: Navbar & Navigation
+- Ensure the mobile hamburger menu works flawlessly and the links are large enough to be easily tapped (touch targets).
+
+## Verification Plan
+- I will run a local build (`npm run build`) to ensure no React syntax errors were introduced.
+- I will review the CSS to ensure media queries cover the standard breakpoints (max-width: 768px, max-width: 480px).
+
+## User Review Required
+
+> [!WARNING]  
+> Because I will be removing many inline styles in favor of CSS classes, the code structure will change significantly. The visual design on Desktop will remain identical, but Mobile will look drastically better.
+
+**Please click "Proceed" to approve this overhaul, and I will begin the sitewide refactoring immediately.**

@@ -22,7 +22,7 @@ export default function Footer() {
               We build the structure. You live the story.
             </p>
             <div className="footer-social">
-              <a href="https://www.instagram.com/storyline_design_and_events/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Instagram" id="footer-instagram">
+              <a href="https://www.instagram.com/storyline_design_and_events?igsh=dnpjam9lemFlaG94" target="_blank" rel="noopener noreferrer" aria-label="Instagram" id="footer-instagram">
                 <FaInstagram />
               </a>
               <a href="https://wa.me/919307195947" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" id="footer-whatsapp">
@@ -43,8 +43,8 @@ export default function Footer() {
               <Link to="/corporate">Storyline Corporate</Link>
               <Link to="/design-studio">Design Studio</Link>
               <Link to="/portfolio">Portfolio</Link>
-              <Link to="/team">Meet The Team</Link>
               <Link to="/about">About Us</Link>
+              <Link to="/hampers">Hampers & Gifting</Link>
               <Link to="/contact">Contact</Link>
             </div>
           </div>
@@ -59,6 +59,7 @@ export default function Footer() {
               <Link to="/corporate">Corporate Stage Production</Link>
               <Link to="/corporate">Structural Rigging</Link>
               <Link to="/design-studio">Print & Digital Design</Link>
+              <Link to="/hampers">Curated Hampers</Link>
             </div>
           </div>
 

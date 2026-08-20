@@ -28,25 +28,23 @@ export default function Navbar() {
   const serviceLinks = [
     { to: '/weddings', label: 'Weddings' },
     { to: '/corporate', label: 'Corporate' },
-    { to: '/design-studio', label: 'Studio' },
+    { to: '/design-studio', label: 'Design Studio' },
     { to: '/hampers', label: 'Hampers' },
   ];
 
   const afterLinks = [
     { to: '/portfolio', label: 'Portfolio' },
     { to: '/about', label: 'About' },
-    { to: '/team', label: 'Team' },
   ];
 
   const allMobileLinks = [
     { to: '/', label: 'Home' },
     { to: '/weddings', label: 'Weddings' },
     { to: '/corporate', label: 'Corporate' },
-    { to: '/design-studio', label: 'Studio' },
+    { to: '/design-studio', label: 'Design Studio' },
     { to: '/hampers', label: 'Hampers' },
     { to: '/portfolio', label: 'Portfolio' },
     { to: '/about', label: 'About' },
-    { to: '/team', label: 'Team' },
   ];
 
   return (

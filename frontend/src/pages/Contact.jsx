@@ -129,7 +129,7 @@ export default function Contact() {
                 <div className="digital-presence-bar mt-5">
                   <h4 className="column-heading mb-4" style={{ fontSize: '1.2rem' }}>Explore Our Live Builds</h4>
                   <div className="social-links-row">
-                    <a href="https://www.instagram.com/storyline_design_and_events/?hl=en" target="_blank" rel="noreferrer" className="social-pill">
+                    <a href="https://www.instagram.com/storyline_design_and_events?igsh=dnpjam9lemFlaG94" target="_blank" rel="noreferrer" className="social-pill">
                       <FaInstagram /> <span>Instagram</span>
                     </a>
                     <a href="#" className="social-pill">

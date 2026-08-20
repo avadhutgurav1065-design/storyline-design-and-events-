@@ -12,7 +12,6 @@ import DesignStudio from './pages/DesignStudio';
 import Hampers from './pages/Hampers';
 import Portfolio from './pages/Portfolio';
 import About from './pages/About';
-import Team from './pages/Team';
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
 import Login from './pages/Login';
@@ -60,8 +59,7 @@ function App() {
               <Route path="/hampers" element={<Hampers />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/about" element={<About />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/contact" element={<Contact />} />
+                        <Route path="/contact" element={<Contact />} />
             <Route path="/admin/login" element={<Login />} />
             <Route path="/admin/*" element={
               <ProtectedRoute>

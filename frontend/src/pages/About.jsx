@@ -85,21 +85,47 @@ export default function About() {
     <div className="about-page" style={{ background: 'var(--cream)' }}>
       
       {/* ===== SECTION 1: THE EDITORIAL MANIFESTO ===== */}
-      <section className="manifesto-hero">
-        <div className="container-wide text-center" style={{ paddingTop: '15vh' }}>
-          <ScrollReveal>
-            <h1 className="manifesto-title">We Build the Structure.<br/>You Live the Story.</h1>
-          </ScrollReveal>
+      <section className="section" style={{ padding: '20px' }}>
+        <div style={{ 
+          position: 'relative', 
+          width: '100%', 
+          minHeight: '80vh', 
+          borderRadius: '30px', 
+          overflow: 'hidden', 
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: 'var(--shadow-elevated)'
+        }}>
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: "url('/images/weddings/bf3f2fd306de8de31850e0b095052a9d.jpg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            zIndex: 1
+          }}></div>
           
-          <ScrollReveal>
-            <p className="manifesto-body">
-              Storyline Design & Events is Pune’s premier event styling and production house. Rebuilt from the ground up as a house of craftsmanship, we bridge the gap between heavy structural engineering and bespoke aesthetic design.
-            </p>
-          </ScrollReveal>
-        </div>
-        
-        <div className="manifesto-image-wrap mt-5">
-          <div className="manifesto-bg"></div>
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.85))',
+            zIndex: 2
+          }}></div>
+
+          <div style={{ position: 'relative', zIndex: 3, textAlign: 'center', padding: 'var(--space-2xl)', maxWidth: '1000px' }}>
+            <ScrollReveal>
+              <h1 className="mega-heading" style={{ color: 'var(--white)', textShadow: '0 4px 20px rgba(0,0,0,0.8)', marginBottom: 'var(--space-lg)' }}>
+                We Build the Structure.<br/><span className="accent" style={{ color: 'var(--rose-deeper)' }}>You Live the Story.</span>
+              </h1>
+            </ScrollReveal>
+            
+            <ScrollReveal>
+              <p style={{ fontSize: '1.4rem', color: '#f0f0f0', lineHeight: '1.8', textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+                Storyline Design & Events is Pune's premier event styling and production house. Rebuilt from the ground up as a house of craftsmanship, we bridge the gap between heavy structural engineering and bespoke aesthetic design.
+              </p>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
@@ -255,11 +281,11 @@ export default function About() {
           
           <div className="leadership-content-half">
             <ScrollReveal>
-              <h2 className="editorial-section-header mb-5">The Leadership</h2>
+              <h2 className="editorial-section-header mb-5" style={{ fontSize: '3rem', color: 'var(--text-dark)' }}>The Leadership.</h2>
             </ScrollReveal>
 
             <ScrollReveal>
-              <div className="founder-profile mb-5">
+              <div className="founder-profile mb-5" style={{ padding: '20px', background: 'var(--white)', borderRadius: '16px', boxShadow: 'var(--shadow-elevated)' }}>
                 <div className="founder-header">
                   <h3>Avadhut Krishna Gurav</h3>
                   <span className="signature-font">Avadhut</span>
@@ -272,7 +298,7 @@ export default function About() {
             </ScrollReveal>
 
             <ScrollReveal>
-              <div className="founder-profile">
+              <div className="founder-profile" style={{ padding: '20px', background: 'var(--white)', borderRadius: '16px', boxShadow: 'var(--shadow-elevated)' }}>
                 <div className="founder-header">
                   <h3>Jayesh Mahajan</h3>
                   <span className="signature-font">Jayesh</span>
@@ -297,22 +323,44 @@ export default function About() {
             </ScrollReveal>
           </div>
 
-          <div className="core-team-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px' }}>
             {coreTeam.map((member, idx) => (
               <ScrollReveal key={idx} animation="reveal-scale">
-                <div className="core-member-card">
-                  <div className="member-image-wrapper">
-                    <img src={member.img} alt={member.name} className="member-image bw-to-color" />
-                    <div className="member-info-overlay glassmorphism">
-                      <h4>{member.name}</h4>
-                      <span className="member-role">{member.role}</span>
-                      <p className="member-bio">{member.bio}</p>
-                    </div>
+                <div style={{ 
+                  position: 'relative', 
+                  borderRadius: '24px', 
+                  overflow: 'hidden', 
+                  boxShadow: 'var(--shadow-card)',
+                  height: '450px',
+                  group: 'true',
+                  cursor: 'pointer'
+                }} className="team-card-enhanced">
+                  <img src={member.img} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} className="team-img-hover" />
+                  <div style={{ 
+                    position: 'absolute', 
+                    inset: 0, 
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                    padding: '30px',
+                    color: 'white',
+                    transition: 'all 0.3s ease'
+                  }}>
+                    <h4 style={{ fontSize: '1.8rem', margin: 0, fontFamily: 'var(--font-heading)', letterSpacing: '0.05em', color: '#ffffff', textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>{member.name}</h4>
+                    <span style={{ color: '#ffb3c6', textTransform: 'uppercase', fontSize: '0.85rem', fontWeight: 'bold', letterSpacing: '0.1em', marginBottom: '10px', display: 'block', textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}>{member.role}</span>
+                    <p style={{ fontSize: '0.95rem', color: '#f0f0f0', lineHeight: '1.6', margin: 0, opacity: 0.95, textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}>{member.bio}</p>
                   </div>
                 </div>
               </ScrollReveal>
             ))}
           </div>
+          
+          <style dangerouslySetInnerHTML={{__html: `
+            .team-card-enhanced:hover .team-img-hover {
+               transform: scale(1.08);
+            }
+          `}} />
         </div>
       </section>
 

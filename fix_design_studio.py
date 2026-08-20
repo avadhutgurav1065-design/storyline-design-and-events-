@@ -1,4 +1,8 @@
-import React, { useEffect } from 'react';
+import os
+
+filepath = r'C:\storyline website\frontend\src\pages\DesignStudio.jsx'
+
+code = """import React, { useEffect } from 'react';
 import ScrollReveal from '../components/ScrollReveal';
 import SectionHeading from '../components/SectionHeading';
 import DesignStudioForm from '../components/DesignStudioForm';
@@ -101,18 +105,18 @@ export default function DesignStudio() {
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center',
-        background: 'linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.8)), url("/images/studio/29b953f956be7594c7acd4e5379326bc.jpg") center/cover no-repeat',
+        background: 'linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.8)), url("/images/portfolio/512314d3077a801ae45d506c9de6f114.jpg") center/cover no-repeat',
         color: 'var(--white)',
         textAlign: 'center',
         padding: 'var(--space-3xl) var(--space-md)'
       }}>
         <div className="container-narrow">
           <ScrollReveal animation="reveal-scale">
-            <h1 className="mega-heading" style={{ fontSize: '4.5rem', marginBottom: 'var(--space-md)', color: 'var(--white)', textShadow: '0 2px 15px rgba(0,0,0,0.9)' }}>
+            <h1 className="mega-heading" style={{ fontSize: '4.5rem', marginBottom: 'var(--space-md)', color: 'var(--white)' }}>
               The Design Studio.
             </h1>
             <div className="gold-line-center" style={{ marginBottom: '25px', width: '80px', height: '4px', background: 'var(--rose-deeper)' }}></div>
-            <p className="hero-body-text" style={{ fontSize: '1.3rem', lineHeight: '1.8', opacity: 0.95, marginBottom: 'var(--space-2xl)', color: 'var(--white)', textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+            <p className="hero-body-text" style={{ fontSize: '1.3rem', lineHeight: '1.8', opacity: 0.9, marginBottom: 'var(--space-2xl)' }}>
               From bespoke weddings to high-stakes corporate summits and B2B white-label agency support. 
               We are the creative engine that renders, brands, and documents the entire aesthetic ecosystem of your event.
             </p>
@@ -126,44 +130,49 @@ export default function DesignStudio() {
       {/* ===== SECTION 2: 3D RENDERING ===== */}
       <section className="section" style={{ background: 'var(--cream)', overflow: 'hidden' }}>
         <div className="container-wide">
-          <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto', marginBottom: 'var(--space-3xl)' }}>
-            <ScrollReveal animation="reveal-scale">
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px', marginBottom: '1rem' }}>
-                <FaCubes style={{ fontSize: '2rem', color: 'var(--rose-deeper)' }} />
-                <span style={{ textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '600', color: 'var(--rose-deeper)' }}>The Blueprint</span>
-              </div>
-              <h2 className="mega-heading" style={{ color: 'var(--text-dark)', marginBottom: 'var(--space-md)' }}>See It Before We Build It.</h2>
-              <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: 'var(--space-md)' }}>
-                We eliminate all guesswork and financial risk. For luxury weddings, corporate builds, and B2B partners, our design studio renders your exact venue in 3D space. 
-              </p>
-              <p style={{ fontSize: '1.1rem', color: 'var(--text-dark)', lineHeight: '1.7', paddingLeft: '1rem', borderLeft: '3px solid var(--rose-deeper)', display: 'inline-block', textAlign: 'left' }}>
-                Walk through the digital blueprint, approve the structural layout, and sign off on the exact aesthetic before a single piece of iron is loaded onto our trucks.
-              </p>
-            </ScrollReveal>
-          </div>
-          
-          <ScrollReveal animation="reveal-scale">
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-              gap: '20px',
-              background: 'var(--white)', 
-              padding: '15px', 
-              borderRadius: '24px', 
-              boxShadow: 'var(--shadow-elevated)',
-              maxWidth: '900px',
-              margin: '0 auto'
-            }}>
-              <div style={{ position: 'relative' }}>
-                <img src="/images/studio/3d-render.jpg" alt="3D Digital Render" style={{ width: '100%', height: '100%', maxHeight: '500px', objectFit: 'cover', borderRadius: '16px', border: '3px solid var(--rose-deeper)' }} />
-                <div style={{ position: 'absolute', bottom: '20px', left: '20px', background: 'rgba(0,0,0,0.8)', color: 'white', padding: '8px 16px', borderRadius: '30px', fontSize: '0.9rem', letterSpacing: '0.05em', fontWeight: 'bold' }}>DIGITAL 3D RENDER</div>
-              </div>
-              <div style={{ position: 'relative' }}>
-                <img src="/images/studio/physical-build.jpg" alt="Physical Build" style={{ width: '100%', height: '100%', maxHeight: '500px', objectFit: 'cover', borderRadius: '16px' }} />
-                <div style={{ position: 'absolute', bottom: '20px', left: '20px', background: 'rgba(0,0,0,0.8)', color: 'white', padding: '8px 16px', borderRadius: '30px', fontSize: '0.9rem', letterSpacing: '0.05em', fontWeight: 'bold' }}>PHYSICAL BUILD</div>
-              </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--space-3xl)' }}>
+            <div style={{ flex: '1 1 500px' }}>
+              <ScrollReveal animation="reveal-left">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1rem' }}>
+                  <FaCubes style={{ fontSize: '2rem', color: 'var(--rose-deeper)' }} />
+                  <span style={{ textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '600', color: 'var(--rose-deeper)' }}>The Blueprint</span>
+                </div>
+                <h2 className="mega-heading" style={{ color: 'var(--text-dark)', marginBottom: 'var(--space-md)' }}>See It Before We Build It.</h2>
+                <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: 'var(--space-lg)' }}>
+                  We eliminate all guesswork and financial risk. For luxury weddings, corporate builds, and B2B partners, our design studio renders your exact venue in 3D space. 
+                </p>
+                <p style={{ fontSize: '1.1rem', color: 'var(--text-dark)', lineHeight: '1.7', paddingLeft: '1rem', borderLeft: '3px solid var(--rose-deeper)' }}>
+                  Walk through the digital blueprint, approve the structural layout, and sign off on the exact aesthetic before a single piece of iron is loaded onto our trucks.
+                </p>
+              </ScrollReveal>
             </div>
-          </ScrollReveal>
+            <div style={{ flex: '1 1 500px' }}>
+              <ScrollReveal animation="reveal-right">
+                <div style={{ 
+                  background: 'var(--white)', 
+                  padding: '10px', 
+                  borderRadius: '16px', 
+                  boxShadow: 'var(--shadow-elevated)',
+                  position: 'relative'
+                }}>
+                  <img src="/images/portfolio/7275c62519f387d8b04aa08cd435b1c8.jpg" alt="3D Render vs Reality" style={{ width: '100%', borderRadius: '12px', display: 'block' }} />
+                  <div style={{ 
+                    position: 'absolute', 
+                    bottom: '20px', 
+                    left: '20px', 
+                    background: 'rgba(0,0,0,0.7)', 
+                    color: 'white', 
+                    padding: '8px 16px', 
+                    borderRadius: '30px',
+                    fontSize: '0.9rem',
+                    letterSpacing: '0.05em'
+                  }}>
+                    PHYSICAL BUILD
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -287,67 +296,6 @@ export default function DesignStudio() {
         </div>
       </section>
 
-      {/* ===== SECTION 4.5: ASYMMETRIC COLLAGE ===== */}
-      <section className="section" style={{ background: 'var(--white)', paddingBottom: 'var(--space-3xl)' }}>
-        <div className="container-wide">
-          <div className="text-center" style={{ marginBottom: 'var(--space-2xl)' }}>
-            <ScrollReveal>
-              <h2 className="mega-heading" style={{ color: 'var(--text-dark)', marginBottom: 'var(--space-sm)' }}>Studio Archive.</h2>
-              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>A glimpse into our physical and digital creations.</p>
-            </ScrollReveal>
-          </div>
-
-          <ScrollReveal animation="reveal-scale">
-            <div className="studio-collage" style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gridAutoRows: '250px',
-              gap: '15px'
-            }}>
-              {/* Large item (span 2 cols, 2 rows) */}
-              <div style={{ gridColumn: 'span 2', gridRow: 'span 2', overflow: 'hidden', borderRadius: '16px' }}>
-                  <img src="/images/studio/2e0274cc31aed3d4dc8a382ef2781e9e.jpg" alt="Studio Flatlay" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
-              </div>
-              {/* Small item */}
-              <div style={{ overflow: 'hidden', borderRadius: '16px' }}>
-                  <img src="/images/studio/44a96405885b62322f5cb5b9f436b6d7.jpg" alt="Studio Details" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
-              </div>
-              {/* Tall item (span 2 rows) */}
-              <div style={{ gridRow: 'span 2', overflow: 'hidden', borderRadius: '16px' }}>
-                  <img src="/images/studio/44c98e1915e07e3ef6386b2389acbcf8.jpg" alt="Studio Signage" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
-              </div>
-              {/* Small item */}
-              <div style={{ overflow: 'hidden', borderRadius: '16px' }}>
-                  <img src="/images/studio/4961615bc0531e5c17959352a93f8819.jpg" alt="Studio Setup" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
-              </div>
-              {/* Wide item (span 2 cols) */}
-              <div style={{ gridColumn: 'span 2', overflow: 'hidden', borderRadius: '16px' }}>
-                  <img src="/images/studio/4a4152194a213190089f335dbce00bb5.jpg" alt="Studio Graphic" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
-              </div>
-              {/* Small item */}
-              <div style={{ overflow: 'hidden', borderRadius: '16px' }}>
-                  <img src="/images/studio/54c4d95f59dce49d5883304320f08840.jpg" alt="Studio Creation" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
-              </div>
-              {/* Small item */}
-              <div style={{ overflow: 'hidden', borderRadius: '16px' }}>
-                  <img src="/images/studio/3b4a4879e1f1acb984d21bec0bfffdf9.jpg" alt="Studio Creation" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
-              </div>
-            </div>
-            
-            {/* Mobile-only note for grid responsiveness - Using a small media query in inline style isn't fully possible, but since the container is repeat(4, 1fr), it might squish on mobile. To make it responsive without CSS classes, I'll use a media query in CSS. Since I don't want to edit global CSS right now, let's keep it simple. Actually, grid-template-columns: 'repeat(auto-fit, minmax(250px, 1fr))' handles mobile better, but breaks the strict "masonry" 2-col/2-row spans unless we are careful. Let's use it but simplify the spans. */}
-          </ScrollReveal>
-        </div>
-        
-        <style dangerouslySetInnerHTML={{__html: `
-          @media (max-width: 768px) {
-            .studio-collage {
-              display: flex !important;
-              flex-direction: column !important;
-            }
-          }
-        `}} />
-      </section>
-
       {/* ===== SECTION 5: THE STUDIO INTAKE ===== */}
       <section className="section" id="studio-intake" style={{ background: 'var(--blush-soft)' }}>
         <div className="container-narrow">
@@ -355,7 +303,7 @@ export default function DesignStudio() {
             <ScrollReveal>
               <h2 className="mega-heading" style={{ fontSize: '3rem', color: 'var(--text-dark)', marginBottom: 'var(--space-md)' }}>Commission the Studio.</h2>
               <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: '1.7' }}>
-                Whether you are planning a luxury wedding, a corporate gala, or you are an event agency needing structural design support--submit your brief below.
+                Whether you are planning a luxury wedding, a corporate gala, or you are an event agency needing structural design support—submit your brief below.
               </p>
             </ScrollReveal>
           </div>
@@ -368,3 +316,9 @@ export default function DesignStudio() {
     </div>
   );
 }
+"""
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(code)
+
+print("DesignStudio.jsx rebuilt.")
