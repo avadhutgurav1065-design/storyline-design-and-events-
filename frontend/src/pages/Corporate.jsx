@@ -92,19 +92,19 @@ export default function Corporate() {
 
   const caseStudies = [
       {
-        src: '/images/portfolio/512314d3077a801ae45d506c9de6f114.jpg',
-        tags: 'LED Mapping, Stage Fabrication, Corporate Seating',
-        title: 'Fujifilm Partnership Summit'
+        src: '/images/corporate/0d43104de7bcd575d7c468c563ec6253.jpg',
+        tags: 'Brand Installation, Grand Entrance, Custom Arches',
+        title: 'Avadh Utopia Celebration'
       },
       {
-        src: '/images/portfolio/7275c62519f387d8b04aa08cd435b1c8.jpg',
-        tags: 'Gala Dinner Layout, Ambient Lighting, Table Styling',
-        title: 'Champions For Change Gala'
+        src: '/images/corporate/1d6bc30b89db004a40e889de31d045b9.jpg',
+        tags: 'Gala Setup, A/V Projection, Banquet Layout',
+        title: 'World of Children Gala'
       },
       {
-        src: '/images/portfolio/ffbb4ae875a587366019e69a37ea3750.jpg',
-        tags: 'Brand Installation, Milestone Timeline, Event Fabrication',
-        title: 'ABBANK 30th Anniversary'
+        src: '/images/corporate/5c4de1cf0d30d1174a9d1f8d0630ef58.jpg',
+        tags: 'LED Wall Production, Lighting Design, Stage Fabrication',
+        title: 'Stellar Tech Gala'
       }
     ];
 
