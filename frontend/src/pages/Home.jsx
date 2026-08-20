@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 // import ScrollReveal from '../components/ScrollReveal'; // Replaced by framer-motion
 import SectionHeading from '../components/SectionHeading';
-import TestimonialCarousel from '../components/TestimonialCarousel';
 import InquiryForm from '../components/InquiryForm';
 import ParallaxImage from '../components/ParallaxImage';
 import MaskedText from '../components/MaskedText';
 import DistortedImage from '../components/DistortedImage';
-import { getFeaturedPortfolio, getTestimonials } from '../services/api';
+import { getFeaturedPortfolio } from '../services/api';
 
 // Custom Hook for Animated Number Counter
 function useCountUp(end, duration = 2500) {
@@ -47,18 +46,18 @@ function useCountUp(end, duration = 2500) {
 
 export default function Home() {
   const [portfolio, setPortfolio] = useState([]);
-  const [testimonials, setTestimonials] = useState([]);
+  
 
   // Animated counters
-  const { count: weddingsCount, countRef: weddingsRef } = useCountUp(10000);
-  const { count: corporateCount, countRef: corporateRef } = useCountUp(7000);
-  const { count: venueCount, countRef: venueRef } = useCountUp(30);
-  const { count: yearsCount, countRef: yearsRef } = useCountUp(18);
+  const { count: weddingsCount, countRef: weddingsRef } = useCountUp(1000);
+  const { count: corporateCount, countRef: corporateRef } = useCountUp(500);
+  const { count: venueCount, countRef: venueRef } = useCountUp(10);
+  const { count: yearsCount, countRef: yearsRef } = useCountUp(6);
 
   useEffect(() => {
     document.title = 'Storyline Design & Events — Premium Event Styling & Production in Pune';
     getFeaturedPortfolio().then(res => setPortfolio(res.data || [])).catch(() => setPortfolio(fallbackPortfolio));
-    getTestimonials().then(res => setTestimonials(res.data || [])).catch(() => setTestimonials([]));
+    
   }, []);
 
   const fallbackPortfolio = [
@@ -112,7 +111,7 @@ export default function Home() {
             transition={{ duration: 1, delay: 1 }}
           >
             <p style={{ textAlign: 'center', fontSize: '1.2rem', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '40px', color: 'var(--rose-deeper)' }}>
-              Unforgettable Memories Since 2008
+              Unforgettable Memories Since 2020
             </p>
           </motion.div>
 
@@ -231,7 +230,7 @@ export default function Home() {
                   <MaskedText text="Moments" delay={0.3} />
                 </h2>
                 <p style={{ fontSize: '1.1rem', marginBottom: '16px', color: 'var(--text-dark)' }}>
-                  At Storyline, we believe in creating unforgettable moments through exceptional decor and meticulous planning. Since our inception in 2008, we have crafted bespoke wedding and event experiences that resonate with emotion, elegance, and impact.
+                  At Storyline, we believe in creating unforgettable moments through exceptional decor and meticulous planning. Since our inception in 2020, we have crafted bespoke wedding and event experiences that resonate with emotion, elegance, and impact.
                 </p>
                 <p style={{ marginBottom: '32px' }}>
                   With over a decade of expertise, we have built lasting relationships with clients across the nation, transforming their dreams into stunning realities.
@@ -282,20 +281,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== TESTIMONIALS ===== */}
-      <section className="section" id="testimonials" style={{ background: 'var(--cream)' }}>
-        <SectionHeading label="Client Words" title="Built on Trust" />
-        <div className="container-narrow">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <TestimonialCarousel testimonials={testimonials} />
-          </motion.div>
-        </div>
-      </section>
+      
       
       {/* ===== INQUIRY CTA ===== */}
       <section className="section" id="inquiry-section" style={{ background: 'var(--blush-soft)' }}>

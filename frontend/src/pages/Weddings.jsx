@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 import SectionHeading from '../components/SectionHeading';
 import InquiryForm from '../components/InquiryForm';
@@ -60,11 +60,11 @@ export default function Weddings() {
   }, []);
 
   const galleryImages = [
-    { src: '/images/portfolio/512314d3077a801ae45d506c9de6f114.jpg', name: 'The Grand Royal Mandap', category: 'Mandap' },
-    { src: '/images/portfolio/5286952977522794e7aaaade2cfe220b.jpg', name: 'Botanical Suspension', category: 'Floral' },
-    { src: '/images/portfolio/58003c63304370c1aa6195a216344cd9.jpg', name: 'Sangeet Stage Production', category: 'Technical' },
-    { src: '/images/portfolio/5935ecbe0930010e497bf5030d0b6215.jpg', name: 'Intimate Haldi Setup', category: 'Styling' },
-    { src: '/images/portfolio/6676522781156ee6547cf08f2b08304c.jpg', name: 'Luxury Drapery', category: 'Styling' },
+    { src: '/images/weddings/0578776d7acbf027e19a6892aca759e3.jpg', name: 'Haldi Welcome Signage', category: 'Signage' },
+    { src: '/images/weddings/0f51575b0db9a3efb67c33817a31212e.jpg', name: 'Courtyard Seating Setup', category: 'Seating' },
+    { src: '/images/weddings/1b9aab1a6de5fe16d3c11daea7bc7e3e.jpg', name: 'Grand Marigold Canopy', category: 'Mandap' },
+    { src: '/images/weddings/24b5efff1c8e03140bb67798dba5bceb.jpg', name: 'The Botanical Walkway', category: 'Entrance' },
+    { src: '/images/weddings/2744a951066cc81bccb451113b6f27da.jpg', name: 'Sunflower Welcome Mirror', category: 'Decor' },
   ];
 
   // Dynamic Engine Data
@@ -167,50 +167,38 @@ export default function Weddings() {
         
         <div className="container-wide" style={{ marginTop: 'var(--space-2xl)' }}>
           
-          {/* Dynamic Tab Buttons */}
-          <div className="dynamic-tabs-container">
-            {engineData.map((tab) => (
-              <button 
-                key={tab.id}
-                className={`dynamic-tab-btn ${activeEngine === tab.id ? 'active' : ''}`}
-                onClick={() => setActiveEngine(tab.id)}
-              >
-                <div className="tab-icon">{tab.icon}</div>
-                <div className="tab-text">
-                  <h3>{tab.title}</h3>
-                  <span>{tab.domain}</span>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          {/* Dynamic Content Panel */}
-          <div className="dynamic-content-panel">
-            <AnimatePresence mode="wait">
-              <motion.div 
-                className="content-inner" 
-                key={activeEngine}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <div className="panel-header">
-                  <h2>{engineData[activeEngine].title}</h2>
-                  <p className="panel-desc">{engineData[activeEngine].description}</p>
-                  <div className="gold-line-left"></div>
-                </div>
-                
-                <div className="panel-grid">
-                  {engineData[activeEngine].details.map((detail, idx) => (
-                    <div key={idx} className="panel-detail-item">
-                      <h4>{detail.label}</h4>
-                      <p>{detail.text}</p>
+          {/* All Services Displayed Sequentially */}
+          <div className="services-list" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3xl)' }}>
+            {engineData.map((service, index) => (
+              <ScrollReveal key={index} animation={index % 2 === 0 ? "reveal-left" : "reveal-right"}>
+                <div className="service-row" style={{ 
+                  background: 'var(--white)', 
+                  padding: 'var(--space-2xl)', 
+                  borderRadius: '24px',
+                  boxShadow: 'var(--shadow-card)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--space-xl)'
+                }}>
+                  <div className="service-row-header" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
+                    <div style={{ fontSize: '3rem', color: 'var(--rose-deeper)' }}>{service.icon}</div>
+                    <div>
+                      <h2 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'var(--font-display)' }}>{service.title}</h2>
+                      <span className="label" style={{ opacity: 0.8 }}>{service.domain}</span>
                     </div>
-                  ))}
+                  </div>
+                  <p className="panel-desc" style={{ fontSize: '1.2rem', lineHeight: 1.6, color: 'var(--text-dark)' }}>{service.description}</p>
+                  <div className="panel-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
+                    {service.details.map((detail, idx) => (
+                      <div key={idx} className="panel-detail-item">
+                        <h4 style={{ color: 'var(--rose-deeper)', marginBottom: '0.5rem', fontFamily: 'var(--font-heading)' }}>{detail.label}</h4>
+                        <p style={{ color: 'var(--text-muted)' }}>{detail.text}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </ScrollReveal>
+            ))}
           </div>
 
         </div>
@@ -274,26 +262,17 @@ export default function Weddings() {
             ))}
           </div>
 
-          <div className="brochure-cta" style={{ textAlign: 'center', marginTop: 'var(--space-3xl)', padding: 'var(--space-2xl) var(--space-md)', background: 'var(--white)', borderRadius: '24px', boxShadow: 'var(--shadow-card)' }}>
-            <ScrollReveal animation="reveal-scale">
-              <h3 style={{ marginBottom: 'var(--space-md)', fontSize: '1.5rem', fontFamily: 'var(--font-heading)', color: 'var(--text-dark)' }}>
-                Want to see the full scope of our capabilities, logistics, and pricing tiers?
-              </h3>
-              <a href="#" className="btn btn-outline btn-lg hover-lift">
-                📥 Download the 2026/2027 Wedding Brochure
-              </a>
-            </ScrollReveal>
-          </div>
+          
         </div>
       </section>
 
       {/* ===== SECTION 4: THE STORYLINE EDGE (AUTHORITY) ===== */}
       <section className="section authority-section" id="wedding-authority" style={{ background: 'var(--footer-bg)', color: 'var(--white)' }}>
         <div className="container">
-          <SectionHeading
-            label="The Edge"
-            title="Why Trust Storyline?"
-          />
+          <div className="light-heading">
+            <SectionHeading label="The Edge" title="Why Trust Storyline?" />
+          </div>
+          <style>{`.light-heading h2, .light-heading .label, .light-heading p { color: var(--white) !important; }`}</style>
           
           <div className="authority-grid">
             

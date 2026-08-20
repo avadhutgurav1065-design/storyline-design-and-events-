@@ -91,22 +91,22 @@ export default function Corporate() {
   ];
 
   const caseStudies = [
-    {
-      src: '/images/portfolio/709d4ce8f06310e107cf6ac6e7fe17c0.jpg',
-      tags: 'LED Mapping, Stage Fabrication, Registration Flow',
-      title: '500-Pax Tech Summit'
-    },
-    {
-      src: '/images/portfolio/7275c62519f387d8b04aa08cd435b1c8.jpg',
-      tags: 'Heavy Truss Rigging, 1000+ Seating Grid, VIP Security',
-      title: 'Institutional Convocation'
-    },
-    {
-      src: '/images/portfolio/78452b62c4e4df528f3239e95ace0ea8.jpg',
-      tags: 'Kabuki Drop Reveal, Press Media Wall, Intelligent Lighting',
-      title: 'Brand Product Launch'
-    }
-  ];
+      {
+        src: '/images/portfolio/512314d3077a801ae45d506c9de6f114.jpg',
+        tags: 'LED Mapping, Stage Fabrication, Corporate Seating',
+        title: 'Fujifilm Partnership Summit'
+      },
+      {
+        src: '/images/portfolio/7275c62519f387d8b04aa08cd435b1c8.jpg',
+        tags: 'Gala Dinner Layout, Ambient Lighting, Table Styling',
+        title: 'Champions For Change Gala'
+      },
+      {
+        src: '/images/portfolio/ffbb4ae875a587366019e69a37ea3750.jpg',
+        tags: 'Brand Installation, Milestone Timeline, Event Fabrication',
+        title: 'ABBANK 30th Anniversary'
+      }
+    ];
 
   return (
     <div className="corporate-page">
@@ -202,42 +202,38 @@ export default function Corporate() {
         
         <div className="container-wide" style={{ marginTop: 'var(--space-2xl)' }}>
           
-          {/* Dynamic Tab Buttons */}
-          <div className="dynamic-tabs-container">
-            {infraData.map((tab) => (
-              <button 
-                key={tab.id}
-                className={`dynamic-tab-btn ${activeInfra === tab.id ? 'active' : ''}`}
-                onClick={() => setActiveInfra(tab.id)}
-              >
-                <div className="tab-icon">{tab.icon}</div>
-                <div className="tab-text">
-                  <h3 style={{ fontSize: '1.2rem' }}>{tab.title}</h3>
+          {/* All Services Displayed Sequentially */}
+          <div className="services-list" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3xl)' }}>
+            {infraData.map((service, index) => (
+              <ScrollReveal key={index} animation={index % 2 === 0 ? "reveal-left" : "reveal-right"}>
+                <div className="service-row" style={{ 
+                  background: 'var(--white)', 
+                  padding: 'var(--space-2xl)', 
+                  borderRadius: '24px',
+                  boxShadow: 'var(--shadow-card)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--space-xl)'
+                }}>
+                  <div className="service-row-header" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
+                    <div style={{ fontSize: '3rem', color: 'var(--rose-deeper)' }}>{service.icon}</div>
+                    <div>
+                      <h2 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'var(--font-display)' }}>{service.title}</h2>
+                    </div>
+                  </div>
+                  <p className="panel-desc" style={{ fontSize: '1.2rem', lineHeight: 1.6, color: 'var(--text-dark)' }}>{service.description}</p>
+                  <div className="panel-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
+                    {service.details.map((detail, idx) => (
+                      <div key={idx} className="panel-detail-item">
+                        <h4 style={{ color: 'var(--rose-deeper)', marginBottom: '0.5rem', fontFamily: 'var(--font-heading)' }}>{detail.label}</h4>
+                        <p style={{ color: 'var(--text-muted)' }}>{detail.text}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </button>
+              </ScrollReveal>
             ))}
           </div>
-
-          {/* Dynamic Content Panel */}
-          <div className="dynamic-content-panel">
-            <div className="content-inner keyframe-fade-in" key={activeInfra}>
-              <div className="panel-header">
-                <h2>{infraData[activeInfra].title}</h2>
-                <p className="panel-desc">{infraData[activeInfra].description}</p>
-                <div className="gold-line-left" style={{ background: 'var(--rose-deeper)' }}></div>
-              </div>
-              
-              <div className="panel-grid">
-                {infraData[activeInfra].details.map((detail, idx) => (
-                  <div key={idx} className="panel-detail-item">
-                    <h4>{detail.label}</h4>
-                    <p>{detail.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
         </div>
       </section>
 
@@ -270,17 +266,7 @@ export default function Corporate() {
             ))}
           </div>
 
-          <div className="text-center" style={{ marginTop: 'var(--space-3xl)' }}>
-            <ScrollReveal>
-              <h3 style={{ fontSize: '1.2rem', marginBottom: 'var(--space-md)', color: 'var(--text-dark)' }}>
-                Review our technical capabilities, A/V inventory, and structural guidelines.
-              </h3>
-              <a href="#" className="btn btn-outline btn-lg hover-lift">
-                📥 Download the Corporate Production Deck
-              </a>
-            </ScrollReveal>
           </div>
-        </div>
       </section>
 
       {/* ===== SECTION 5: THE B2B INTAKE (THE ENQUIRY) ===== */}
