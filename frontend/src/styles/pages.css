@@ -839,7 +839,7 @@
     }
     
     /* Fix form squishing */
-    .intake-form-container, .inquiry-form, .contact-hero-boutique {
+    .intake-form-container, .inquiry-form {
         padding: 10px 0 !important;
     }
     
@@ -1059,5 +1059,12 @@
     .deep-dive-list li {
         text-align: center !important;
         margin-bottom: 12px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Fix Mobile Header Overlap by pushing hero content down */
+    .hero, .hero-split, .cinematic-hero, .contact-hero-boutique, .portfolio-hero, .hero-section, .hamper-hero, .about-hero {
+        padding-top: 130px !important;
     }
 }
