@@ -307,26 +307,34 @@ export default function Portfolio() {
           <div className="reels-grid">
             <ScrollReveal animation="reveal-scale">
               <div className="reel-card">
-                <div className="reel-video placeholder-dark">▶</div>
-                <p>12-Hour Overnight Mandap Build (Time-Lapse)</p>
+                <div className="reel-video placeholder-dark" style={{ overflow: 'hidden' }}>
+                    <video src="/videos/Mandap Build (Time-Lapse).mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }} />
+                  </div>
+                  <p>12-Hour Overnight Mandap Build (Time-Lapse)</p>
               </div>
             </ScrollReveal>
             <ScrollReveal animation="reveal-scale">
               <div className="reel-card">
-                <div className="reel-video placeholder-dark">▶</div>
-                <p>The Floral Ceiling Rigging</p>
+                <div className="reel-video placeholder-dark" style={{ overflow: 'hidden' }}>
+                    <video src="/videos/Floral Ceiling Rigging.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }} />
+                  </div>
+                  <p>The Floral Ceiling Rigging</p>
               </div>
             </ScrollReveal>
             <ScrollReveal animation="reveal-scale">
               <div className="reel-card">
-                <div className="reel-video placeholder-dark">▶</div>
-                <p>Cinematic Bridal Entry</p>
+                <div className="reel-video placeholder-dark" style={{ overflow: 'hidden' }}>
+                    <video src="/videos/Cinematic Bridal Entry.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }} />
+                  </div>
+                  <p>Cinematic Bridal Entry</p>
               </div>
             </ScrollReveal>
             <ScrollReveal animation="reveal-scale">
               <div className="reel-card">
-                <div className="reel-video placeholder-dark">▶</div>
-                <p>Expo Registration & VIP Lounge Flow</p>
+                <div className="reel-video placeholder-dark" style={{ overflow: 'hidden' }}>
+                    <video src="/videos/Expo Registration.mp4" autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }} />
+                  </div>
+                  <p>Expo Registration & VIP Lounge Flow</p>
               </div>
             </ScrollReveal>
           </div>
